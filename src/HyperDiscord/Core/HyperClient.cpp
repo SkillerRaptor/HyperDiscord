@@ -7,8 +7,17 @@ namespace HyperDiscord
 	{
 	}
 
+	HyperClient::HyperClient(const std::string token, TokenType tokenType)
+		: HyperClient(Token(token, tokenType))
+	{
+	}
+
 	HyperClient::~HyperClient()
 	{
 
+	}
+
+	void HyperClient::Run()
+	{
 	}
 }

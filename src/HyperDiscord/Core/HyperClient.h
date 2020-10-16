@@ -13,6 +13,9 @@ namespace HyperDiscord
 
 	public:
 		HyperClient(Token token);
+		HyperClient(const std::string token, TokenType tokenType);
 		~HyperClient();
+
+		void Run();
 	};
 }
