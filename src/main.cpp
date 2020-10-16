@@ -1,6 +1,5 @@
-#include <iostream>
+#include "HyperDiscord/HyperDiscord.h"
 
 int main(int argc, char** argv)
 {
-	std::cout << "Hello World!" << std::endl;
 }
