@@ -9,6 +9,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/resources/guild#guild-object-verification-level */
 	enum class VerificationLevel
 	{
 		NONE = 0,
@@ -18,6 +19,7 @@ namespace HyperDiscord
 		VERY_HIGH
 	};
 
+	/* https://discord.com/developers/docs/resources/guild#guild-object-guild-structure */
 	class Guild
 	{
 	private:

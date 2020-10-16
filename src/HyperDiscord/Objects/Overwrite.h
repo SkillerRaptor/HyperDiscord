@@ -12,6 +12,7 @@ namespace HyperDiscord
 		MEMBER
 	};
 
+	/* https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure */
 	class Overwrite
 	{
 	private:
@@ -30,9 +31,9 @@ namespace HyperDiscord
 		OverwriteType GetType() const;
 
 		void SetAllow(const std::string& allow);
-		std::string GetAllow() const;
+		const std::string& GetAllow() const;
 
 		void SetDeny(const std::string& deny);
-		std::string GetDeny() const;
+		const std::string& GetDeny() const;
 	};
 }

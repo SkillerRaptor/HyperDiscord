@@ -6,6 +6,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/resources/user#user-object-user-flags */
 	enum class UserFlags
 	{
 		NONE = 0,
@@ -24,6 +25,7 @@ namespace HyperDiscord
 		EARLY_VERIFIED_BOT_DEVELOPER = 1 << 17
 	};
 
+	/* https://discord.com/developers/docs/resources/user#user-object-premium-types */
 	enum class PremiumType
 	{
 		NONE = 0,
@@ -31,6 +33,7 @@ namespace HyperDiscord
 		NITRO
 	};
 
+	/* https://discord.com/developers/docs/resources/user#user-object-user-structure */
 	class User
 	{
 	private:

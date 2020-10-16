@@ -4,6 +4,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure */
 	class VoiceRegion
 	{
 	private:

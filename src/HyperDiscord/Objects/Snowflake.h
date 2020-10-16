@@ -6,6 +6,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/reference#snowflakes-snowflake-id-format-structure-left-to-right */
 	class Snowflake
 	{
 	private:

@@ -63,7 +63,7 @@ namespace HyperDiscord
 		m_Name = name;
 	}
 
-	std::string Channel::GetName() const
+	const std::string& Channel::GetName() const
 	{
 		return m_Name;
 	};
@@ -73,7 +73,7 @@ namespace HyperDiscord
 		m_Topic = topic;
 	}
 
-	std::string Channel::GetTopic() const
+	const std::string& Channel::GetTopic() const
 	{
 		return m_Topic;
 	};
@@ -143,7 +143,7 @@ namespace HyperDiscord
 		m_Icon = icon;
 	}
 
-	std::string Channel::GetIcon() const
+	const std::string& Channel::GetIcon() const
 	{
 		return m_Icon;
 	};

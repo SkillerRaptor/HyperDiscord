@@ -10,6 +10,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/resources/channel#channel-object-channel-types */
 	enum class ChannelType
 	{
 		GUILD_TEXT = 0,
@@ -63,10 +64,10 @@ namespace HyperDiscord
 		std::vector<Overwrite> GetPermissionOverwrites() const;
 
 		void SetName(const std::string& name);
-		std::string GetName() const;
+		const std::string& GetName() const;
 
 		void SetTopic(const std::string& topic);
-		std::string GetTopic() const;
+		const std::string& GetTopic() const;
 
 		void SetNsfw(bool nsfw);
 		bool GetNsfw() const;
@@ -87,7 +88,7 @@ namespace HyperDiscord
 		std::vector<User> GetRecipients() const;
 
 		void SetIcon(const std::string& icon);
-		std::string GetIcon() const;
+		const std::string& GetIcon() const;
 
 		void SetOwnerId(Snowflake ownerId);
 		Snowflake GetOwnerId() const;

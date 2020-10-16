@@ -32,7 +32,7 @@ namespace HyperDiscord
 		m_Allow = allow;
 	}
 
-	std::string Overwrite::GetAllow() const
+	const std::string& Overwrite::GetAllow() const
 	{
 		return m_Allow;
 	}
@@ -42,7 +42,7 @@ namespace HyperDiscord
 		m_Deny = deny;
 	}
 
-	std::string Overwrite::GetDeny() const
+	const std::string& Overwrite::GetDeny() const
 	{
 		return m_Deny;
 	}

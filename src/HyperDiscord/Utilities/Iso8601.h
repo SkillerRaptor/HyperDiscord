@@ -4,6 +4,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/reference#iso8601-datetime */
 	class Iso8601
 	{
 	private:
