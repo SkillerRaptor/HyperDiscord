@@ -10,7 +10,7 @@
 
 namespace HyperDiscord
 {
-	enum ChannelType
+	enum class ChannelType
 	{
 		GUILD_TEXT = 0,
 		DM,

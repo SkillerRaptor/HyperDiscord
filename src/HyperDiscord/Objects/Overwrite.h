@@ -6,7 +6,7 @@
 
 namespace HyperDiscord
 {
-	enum OverwriteType
+	enum class OverwriteType
 	{
 		ROLE = 0,
 		MEMBER

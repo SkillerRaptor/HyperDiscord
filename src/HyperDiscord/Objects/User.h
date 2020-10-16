@@ -6,7 +6,7 @@
 
 namespace HyperDiscord
 {
-	enum UserFlags
+	enum class UserFlags
 	{
 		NONE = 0,
 		DISCORD_EMPLOYEE = 1 << 0,
@@ -24,7 +24,7 @@ namespace HyperDiscord
 		EARLY_VERIFIED_BOT_DEVELOPER = 1 << 17
 	};
 
-	enum PremiumType
+	enum class PremiumType
 	{
 		NONE = 0,
 		NITRO_CLASSIC,
@@ -34,7 +34,7 @@ namespace HyperDiscord
 	class User
 	{
 	private:
-		Snowflake m_Id;
+		//Snowflake m_Id;
 		std::string m_Username;
 		std::string m_Discriminator;
 		std::string m_Avatar;

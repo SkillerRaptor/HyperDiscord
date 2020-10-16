@@ -9,7 +9,7 @@
 
 namespace HyperDiscord
 {
-	enum VerificationLevel
+	enum class VerificationLevel
 	{
 		NONE = 0,
 		LOW,
@@ -21,19 +21,19 @@ namespace HyperDiscord
 	class Guild
 	{
 	private:
-		Snowflake m_Id;
+		//Snowflake m_Id;
 		std::string m_Name;
 		std::string m_Icon;
 		std::string m_Splash;
 		std::string m_DiscoverySplash;
 		bool m_Owner;
-		Snowflake m_OwnerId;
+		//Snowflake m_OwnerId;
 		std::string m_Permissions;
 		VoiceRegion m_Region;
-		Snowflake m_AfkChannelId;
+		//Snowflake m_AfkChannelId;
 		uint32_t m_AfkTimeout;
 		bool m_WidgetEnabled;
-		Snowflake m_WidgetChannelId;
+		//Snowflake m_WidgetChannelId;
 		VerificationLevel m_VerificationLevel;
 
 	public:
