@@ -1,11 +1,14 @@
 #include "User.h"
 
-User::User()
+namespace HyperDiscord
 {
+	User::User()
+	{
 
-}
+	}
 
-User::~User()
-{
+	User::~User()
+	{
 
+	}
 }

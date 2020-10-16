@@ -1,11 +1,14 @@
 #include "VoiceRegion.h"
 
-VoiceRegion::VoiceRegion()
+namespace HyperDiscord
 {
+	VoiceRegion::VoiceRegion()
+	{
 
-}
+	}
 
-VoiceRegion::~VoiceRegion()
-{
+	VoiceRegion::~VoiceRegion()
+	{
 
+	}
 }

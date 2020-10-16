@@ -2,17 +2,20 @@
 
 #include <string>
 
-class VoiceRegion
+namespace HyperDiscord
 {
-private:
-	std::string m_Id;
-	std::string m_Name;
-	bool m_Vip;
-	bool m_Optimal;
-	bool m_Deprecated;
-	bool m_Custom;
+	class VoiceRegion
+	{
+	private:
+		std::string m_Id;
+		std::string m_Name;
+		bool m_Vip;
+		bool m_Optimal;
+		bool m_Deprecated;
+		bool m_Custom;
 
-public:
-	VoiceRegion();
-	~VoiceRegion();
-};
+	public:
+		VoiceRegion();
+		~VoiceRegion();
+	};
+}

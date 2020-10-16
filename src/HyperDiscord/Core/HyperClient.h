@@ -1,10 +1,13 @@
 #pragma once
 
-class HyperClient
+namespace HyperDiscord
 {
-private:
+	class HyperClient
+	{
+	private:
 
-public:
-	HyperClient();
-	~HyperClient();
-};
+	public:
+		HyperClient();
+		~HyperClient();
+	};
+}

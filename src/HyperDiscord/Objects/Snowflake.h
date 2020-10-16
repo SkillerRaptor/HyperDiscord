@@ -4,17 +4,20 @@
 
 #include "Utilities/Timestamp.h"
 
-class Snowflake
+namespace HyperDiscord
 {
-private:
-	long long m_Id;
+	class Snowflake
+	{
+	private:
+		long long m_Id;
 
-public:
-	Snowflake(long long id);
-	Snowflake(Timestamp timeStamp);
+	public:
+		Snowflake(long long id);
+		Snowflake(Timestamp timeStamp);
 
-	Timestamp GetTimestamp() const;
-	uint64_t GetInternalWorkerId() const;
-	uint64_t GetInternalProcessId() const;
-	uint64_t GetIncrement() const;
-};
+		Timestamp GetTimestamp() const;
+		uint64_t GetInternalWorkerId() const;
+		uint64_t GetInternalProcessId() const;
+		uint64_t GetIncrement() const;
+	};
+}

@@ -1,11 +1,14 @@
 #include "Guild.h"
 
-Guild::Guild()
+namespace HyperDiscord
 {
+	Guild::Guild()
+	{
 
-}
+	}
 
-Guild::~Guild()
-{
+	Guild::~Guild()
+	{
 
+	}
 }

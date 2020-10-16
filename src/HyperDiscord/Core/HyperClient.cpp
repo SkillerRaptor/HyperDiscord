@@ -1,11 +1,14 @@
 #include "HyperClient.h"
 
-HyperClient::HyperClient()
+namespace HyperDiscord
 {
+	HyperClient::HyperClient()
+	{
 
-}
+	}
 
-HyperClient::~HyperClient()
-{
+	HyperClient::~HyperClient()
+	{
 
+	}
 }
