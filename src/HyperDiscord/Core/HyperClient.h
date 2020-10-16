@@ -1,13 +1,18 @@
 #pragma once
 
+#include <string>
+
+#include "Token.h"
+
 namespace HyperDiscord
 {
 	class HyperClient
 	{
 	private:
+		Token m_Token;
 
 	public:
-		HyperClient();
+		HyperClient(Token token);
 		~HyperClient();
 	};
 }

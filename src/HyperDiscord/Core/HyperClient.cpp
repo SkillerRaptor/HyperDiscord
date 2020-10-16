@@ -2,9 +2,9 @@
 
 namespace HyperDiscord
 {
-	HyperClient::HyperClient()
+	HyperClient::HyperClient(Token token)
+		: m_Token(token)
 	{
-
 	}
 
 	HyperClient::~HyperClient()
