@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 
 #include "Snowflake.h"
@@ -37,7 +38,7 @@ namespace HyperDiscord
 	class User
 	{
 	private:
-		//Snowflake m_Id;
+		Snowflake m_Id;
 		std::string m_Username;
 		std::string m_Discriminator;
 		std::string m_Avatar;
@@ -52,7 +53,82 @@ namespace HyperDiscord
 		uint32_t m_PublicFlags;
 
 	public:
-		User();
-		~User();
+		User(Snowflake id, const std::string& username, const std::string& discriminator, const std::string& avatar, bool bot, bool system, bool mfaEnabled, const std::string& locale, bool verified, const std::string& email, uint32_t flags, PremiumType premiumType,uint32_t publicFlags);
+
+		void SetId(Snowflake id);
+		Snowflake GetId() const;
+
+		void SetUsername(const std::string& username);
+		const std::string& GetUsername() const;
+
+		void SetDiscriminator(const std::string& discriminator);
+		const std::string& GetDiscriminator() const;
+
+		void SetAvatar(const std::string& avatar);
+		const std::string& GetAvatar() const;
+
+		void SetBot(bool bot);
+		bool IsBot() const;
+
+		void SetSystem(bool system);
+		bool IsSystem() const;
+
+		void SetMfaEnabled(bool mfaEnabled);
+		bool IsMfaEnabled() const;
+
+		void SetLocale(const std::string& locale);
+		const std::string& GetLocale() const;
+
+		void SetVerified(bool verified);
+		bool IsVerified() const;
+
+		void SetEmail(const std::string& email);
+		const std::string& GetEmail() const;
+
+		void SetFlags(uint32_t flags);
+		uint32_t GetFlags() const;
+
+		void SetPremiumType(PremiumType premiumType);
+		PremiumType GetPremiumType() const;
+
+		void SetPublicFlags(uint32_t publicFlags);
+		uint32_t GetPublicFlags() const;
+
+		friend std::ostream& operator<<(std::ostream& os, const User& user);
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const PremiumType& premiumType)
+	{
+		switch (premiumType) 
+		{
+		case PremiumType::NONE:
+			os << "None";
+			break;
+		case PremiumType::NITRO_CLASSIC:
+			os << "Nitro Classic";
+			break;
+		case PremiumType::NITRO:
+			os << "Nitro";
+			break;
+		}
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const User& user)
+	{
+		os << "Id: " << user.GetId()
+			<< ", Username: " << user.GetUsername()
+			<< ", Discriminator: " << user.GetDiscriminator()
+			<< ", Avatar: " << user.GetAvatar()
+			<< ", Bot: " << user.IsBot()
+			<< ", System: " << user.IsSystem()
+			<< ", Enabled: " << user.IsMfaEnabled()
+			<< ", Locale: " << user.GetLocale()
+			<< ", Verified: " << user.IsVerified()
+			<< ", Email: " << user.GetEmail()
+			<< ", Flags: " << user.GetFlags()
+			<< ", Premium Type: " << user.GetPremiumType()
+			<< ", Public Flags: " << user.GetPublicFlags();
+		return os;
+	}
 }
