@@ -13,12 +13,15 @@ namespace HyperDiscord
 		long long m_Id;
 
 	public:
-		Snowflake(long long id);
+		Snowflake(long long id = 0);
 		Snowflake(Timestamp timeStamp);
 
+		long long GetId() const;
 		Timestamp GetTimestamp() const;
 		uint64_t GetInternalWorkerId() const;
 		uint64_t GetInternalProcessId() const;
 		uint64_t GetIncrement() const;
+
+		operator long long() const;
 	};
 }

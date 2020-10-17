@@ -14,6 +14,11 @@ namespace HyperDiscord
 	{
 	}
 
+	long long Snowflake::GetId() const
+	{
+		return m_Id;
+	}
+
 	Timestamp Snowflake::GetTimestamp() const
 	{
 		return Timestamp((m_Id >> 22) + DISCORD_EPOCH);
@@ -32,5 +37,10 @@ namespace HyperDiscord
 	uint64_t Snowflake::GetIncrement() const
 	{
 		return m_Id & 0xFFF;
+	}
+
+	Snowflake::operator long long() const
+	{
+		return m_Id;
 	}
 }

@@ -20,7 +20,7 @@ namespace HyperDiscord
 	public:
 		Token(const std::string& token, TokenType type);
 
-		const std::string& GetAuthorization() const;
+		const std::string GetAuthorization() const;
 
 		const std::string& GetToken() const;
 		TokenType GetType() const;

@@ -7,7 +7,7 @@ namespace HyperDiscord
 	{
 	}
 
-	const std::string& Token::GetAuthorization() const
+	const std::string Token::GetAuthorization() const
 	{
 		switch (m_Type)
 		{

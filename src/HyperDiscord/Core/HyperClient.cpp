@@ -3,7 +3,7 @@
 namespace HyperDiscord
 {
 	HyperClient::HyperClient(Token token)
-		: m_Token(token)
+		: m_Token(token), m_NetworkClient(m_Token)
 	{
 	}
 
@@ -15,6 +15,11 @@ namespace HyperDiscord
 	HyperClient::~HyperClient()
 	{
 
+	}
+
+	Channel HyperClient::GetChannel(Snowflake channelId)
+	{
+		return m_NetworkClient.GetChannel(channelId);
 	}
 
 	void HyperClient::Run()
