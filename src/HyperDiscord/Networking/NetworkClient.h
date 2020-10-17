@@ -28,6 +28,8 @@ namespace HyperDiscord
 		//nlohmann::json Patch(const std::string& path);
 		//nlohmann::json Delete(const std::string& path);
 
+		bool Check(nlohmann::json json, const std::string& key) const;
 		bool Contains(nlohmann::json json, const std::string& key) const;
+		bool IsNull(nlohmann::json json, const std::string& key) const;
 	};
 }

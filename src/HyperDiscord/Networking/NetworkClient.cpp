@@ -26,47 +26,47 @@ namespace HyperDiscord
 		ChannelType type = ChannelType((uint32_t) channel.at("type"));
 
 		Snowflake guildId = Snowflake();
-		if(Contains(channel, "guild_id")) guildId = Snowflake(std::stoll((std::string) channel.at("guild_id")));
+		if(Check(channel, "guild_id")) guildId = Snowflake(std::stoll((std::string) channel.at("guild_id")));
 
 		uint32_t position = -1;
-		if (Contains(channel, "position")) position = (uint32_t) channel.at("position");
+		if (Check(channel, "position")) position = (uint32_t) channel.at("position");
 
 		// TODO: Adding Permission Overwrites
 
 		std::string name = "";
-		if (Contains(channel, "name")) name = (std::string) channel.at("name");
+		if (Check(channel, "name")) name = (std::string) channel.at("name");
 
 		std::string topic = "";
-		if (Contains(channel, "topic")) name = (std::string) channel.at("topic");
+		if (Check(channel, "topic")) name = (std::string) channel.at("topic");
 
 		bool nsfw = false;
-		if (Contains(channel, "nsfw")) nsfw = (bool) channel.at("nsfw");
+		if (Check(channel, "nsfw")) nsfw = (bool) channel.at("nsfw");
 
 		Snowflake lastMessageId = Snowflake();
-		if (Contains(channel, "last_message_id")) lastMessageId = Snowflake(std::stoll((std::string) channel.at("last_message_id")));
+		if (Check(channel, "last_message_id")) lastMessageId = Snowflake(std::stoll((std::string) channel.at("last_message_id")));
 
 		uint32_t bitrate = -1;
-		if (Contains(channel, "bitrate")) bitrate = (uint32_t) channel.at("bitrate");
+		if (Check(channel, "bitrate")) bitrate = (uint32_t) channel.at("bitrate");
 
 		uint32_t userLimit = -1;
-		if (Contains(channel, "user_limit")) userLimit = (uint32_t) channel.at("user_limit");
+		if (Check(channel, "user_limit")) userLimit = (uint32_t) channel.at("user_limit");
 
 		uint32_t rateLimitPerUser = -1;
-		if (Contains(channel, "rate_limit_per_user")) rateLimitPerUser = (uint32_t) channel.at("rate_limit_per_user");
+		if (Check(channel, "rate_limit_per_user")) rateLimitPerUser = (uint32_t) channel.at("rate_limit_per_user");
 
 		// TODO: Adding Recipients
 
 		std::string icon = "";
-		if (Contains(channel, "icon")) icon = (std::string) channel.at("icon");
+		if (Check(channel, "icon")) icon = (std::string) channel.at("icon");
 
 		Snowflake ownerId = Snowflake();
-		if (Contains(channel, "ownerId")) lastMessageId = Snowflake(std::stoll((std::string) channel.at("owner_id")));
+		if (Check(channel, "ownerId")) lastMessageId = Snowflake(std::stoll((std::string) channel.at("owner_id")));
 
 		Snowflake applicationId = Snowflake();
-		if (Contains(channel, "applicationId")) lastMessageId = Snowflake(std::stoll((std::string) channel.at("application_id")));
+		if (Check(channel, "applicationId")) lastMessageId = Snowflake(std::stoll((std::string) channel.at("application_id")));
 
 		Snowflake parentId = Snowflake();
-		if (Contains(channel, "parentId")) lastMessageId = Snowflake(std::stoll((std::string) channel.at("parent_id")));
+		if (Check(channel, "parentId")) lastMessageId = Snowflake(std::stoll((std::string) channel.at("parent_id")));
 
 		// TODO: Adding Last Pin Timestamp
 
@@ -82,8 +82,18 @@ namespace HyperDiscord
 		return nlohmann::json::parse(result->body);
 	}
 
+	bool NetworkClient::Check(nlohmann::json json, const std::string& key) const
+	{
+		return Contains(json, key) && !IsNull(json, key);
+	}
+
 	bool NetworkClient::Contains(nlohmann::json json, const std::string& key) const
 	{
 		return json.find(key) != json.end();
+	}
+
+	bool NetworkClient::IsNull(nlohmann::json json, const std::string& key) const
+	{
+		return json.at(key).is_null();
 	}
 }

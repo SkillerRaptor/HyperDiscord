@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -101,5 +102,59 @@ namespace HyperDiscord
 
 		void SetLastPinTimestamp(Iso8601 lastPinTimestamp);
 		Iso8601 GetLastPinTimestamp() const;
+
+		friend std::ostream& operator<<(std::ostream& os, const Channel& channel);
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const ChannelType& channelType)
+	{
+		switch (channelType)
+		{
+		case ChannelType::GUILD_TEXT:
+			os << "Guild Text";
+			break;
+		case ChannelType::DM:
+			os << "Guild Direct Message";
+			break;
+		case ChannelType::GUILD_VOICE:
+			os << "Guild Voice";
+			break;
+		case ChannelType::GROUP_DM:
+			os << "Group Direct Message";
+			break;
+		case ChannelType::GUILD_CATEGORY:
+			os << "Guild Category";
+			break;
+		case ChannelType::GUILD_NEWS:
+			os << "Guild News";
+			break;
+		case ChannelType::GUILD_STORE:
+			os << "Guild Store";
+			break;
+		}
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const Channel& channel)
+	{
+		os << "Id: " << channel.GetId()
+			<< ", Type: " << channel.GetType()
+			<< ", Guild Id: " << channel.GetGuildId()
+			<< ", Position: " << channel.GetPosition()
+			//<< ", Permission Overwrites: " << channel.GetPermissionOverwrites()
+			<< ", Name: " << channel.GetName()
+			<< ", Topic: " << channel.GetTopic()
+			<< ", Nsfw: " << channel.GetNsfw()
+			<< ", Last Message Id: " << channel.GetLastMessageId()
+			<< ", Bitrate: " << channel.GetBitrate()
+			<< ", User Limit: " << channel.GetUserLimit()
+			<< ", Rate Limit Per User: " << channel.GetRateLimitPerUser()
+			//<< ", Recipients: " << channel.GetRecipients()
+			<< ", Icon: " << channel.GetIcon()
+			<< ", Owner Id: " << channel.GetOwnerId()
+			<< ", Application Id: " << channel.GetApplicationId()
+			<< ", Parent Id: " << channel.GetParentId();
+			//<< ", Last Pin Timestamp: " << channel.GetLastPinTimestamp();
+		return os;
+	}
 }
