@@ -10,7 +10,7 @@ namespace HyperDiscord
 
 	void ActivityAssets::SetLargeImage(const std::string& largeImage)
 	{
-		m_LargeImage = largeImage
+		m_LargeImage = largeImage;
 	}
 
 	const std::string& ActivityAssets::GetLargeImage() const
@@ -20,7 +20,7 @@ namespace HyperDiscord
 
 	void ActivityAssets::SetLargeText(const std::string& largeText)
 	{
-		m_LargeText = largeText
+		m_LargeText = largeText;
 	}
 
 	const std::string& ActivityAssets::GetLargeText() const
@@ -30,7 +30,7 @@ namespace HyperDiscord
 
 	void ActivityAssets::SetSmallImage(const std::string& smallImage)
 	{
-		m_SmallImage = smallImage
+		m_SmallImage = smallImage;
 	}
 
 	const std::string& ActivityAssets::GetSmallImage() const
