@@ -10,6 +10,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-structure */
 	class GuildMember
 	{
 	private:

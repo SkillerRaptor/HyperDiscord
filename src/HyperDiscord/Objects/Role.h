@@ -7,6 +7,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/topics/permissions#role-object-role-structure */
 	class Role
 	{
 	private:

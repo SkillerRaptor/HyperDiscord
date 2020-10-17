@@ -8,6 +8,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure */
 	class VoiceState
 	{
 	private:

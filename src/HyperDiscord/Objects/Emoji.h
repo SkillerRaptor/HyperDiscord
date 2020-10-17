@@ -9,6 +9,7 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure */
 	class Emoji
 	{
 	private:
