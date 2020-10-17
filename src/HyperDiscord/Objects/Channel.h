@@ -71,7 +71,7 @@ namespace HyperDiscord
 		const std::string& GetTopic() const;
 
 		void SetNsfw(bool nsfw);
-		bool GetNsfw() const;
+		bool IsNsfw() const;
 
 		void SetLastMessageId(Snowflake lastMessageId);
 		Snowflake GetLastMessageId() const;
@@ -144,7 +144,7 @@ namespace HyperDiscord
 			//<< ", Permission Overwrites: " << channel.GetPermissionOverwrites()
 			<< ", Name: " << channel.GetName()
 			<< ", Topic: " << channel.GetTopic()
-			<< ", Nsfw: " << channel.GetNsfw()
+			<< ", Nsfw: " << channel.IsNsfw()
 			<< ", Last Message Id: " << channel.GetLastMessageId()
 			<< ", Bitrate: " << channel.GetBitrate()
 			<< ", User Limit: " << channel.GetUserLimit()

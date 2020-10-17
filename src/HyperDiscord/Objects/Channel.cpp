@@ -83,7 +83,7 @@ namespace HyperDiscord
 		m_Nsfw = nsfw;
 	}
 
-	bool Channel::GetNsfw() const
+	bool Channel::IsNsfw() const
 	{
 		return m_Nsfw;
 	};
