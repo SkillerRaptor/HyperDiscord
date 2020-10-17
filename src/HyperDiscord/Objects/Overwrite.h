@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 
 #include "Snowflake.h"
@@ -35,5 +36,30 @@ namespace HyperDiscord
 
 		void SetDeny(const std::string& deny);
 		const std::string& GetDeny() const;
+
+		friend std::ostream& operator<<(std::ostream& os, const Overwrite& overwrite);
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const OverwriteType& overwriteType)
+	{
+		switch (overwriteType)
+		{
+		case OverwriteType::ROLE:
+			os << "Role";
+			break;
+		case OverwriteType::MEMBER:
+			os << "Member";
+			break;
+		}
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const Overwrite& overwrite)
+	{
+		os << "Id: " << overwrite.GetId()
+			<< ", Type: " << overwrite.GetType()
+			<< ", Allow: " << overwrite.GetAllow()
+			<< ", Deny: " << overwrite.GetDeny();
+		return os;
+	}
 }
