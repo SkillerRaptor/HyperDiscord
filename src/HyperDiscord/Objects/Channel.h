@@ -30,7 +30,7 @@ namespace HyperDiscord
 		Snowflake m_Id;
 		ChannelType m_Type;
 		Snowflake m_GuildId;
-		uint32_t m_Position;
+		uint16_t m_Position;
 		std::vector<Overwrite> m_PermissionOverwrites;
 		std::string m_Name;
 		std::string m_Topic;
@@ -47,7 +47,7 @@ namespace HyperDiscord
 		Iso8601 m_LastPinTimestamp;
 
 	public:
-		Channel(Snowflake id, ChannelType type, Snowflake guildId, uint32_t position, const std::vector<Overwrite>& permissionOverwrites, const std::string& name, const std::string& topic, bool nsfw, Snowflake lastMessageId, uint32_t bitrate, uint32_t userLimit, uint32_t rateLimitPerUser, const std::vector<User>& recipients, const std::string& icon, Snowflake ownerId, Snowflake applicationId, Snowflake parentId, Iso8601 lastPinTimestamp);
+		Channel(Snowflake id, ChannelType type, Snowflake guildId, uint16_t position, const std::vector<Overwrite>& permissionOverwrites, const std::string& name, const std::string& topic, bool nsfw, Snowflake lastMessageId, uint32_t bitrate, uint32_t userLimit, uint32_t rateLimitPerUser, const std::vector<User>& recipients, const std::string& icon, Snowflake ownerId, Snowflake applicationId, Snowflake parentId, Iso8601 lastPinTimestamp);
 
 		void SetId(Snowflake id);
 		Snowflake GetId() const;
@@ -58,8 +58,8 @@ namespace HyperDiscord
 		void SetGuildId(Snowflake guildId);
 		Snowflake GetGuildId() const;
 
-		void SetPosition(uint32_t position);
-		uint32_t GetPosition() const;
+		void SetPosition(uint16_t position);
+		uint16_t GetPosition() const;
 
 		void SetPermissionOverwrites(const std::vector<Overwrite>& permissionOverwrites);
 		std::vector<Overwrite> GetPermissionOverwrites() const;

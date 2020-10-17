@@ -2,7 +2,7 @@
 
 namespace HyperDiscord
 {
-	Channel::Channel(Snowflake id, ChannelType type, Snowflake guildId, uint32_t position, const std::vector<Overwrite>& permissionOverwrites, const std::string& name, const std::string& topic, bool nsfw, Snowflake lastMessageId, uint32_t bitrate, uint32_t userLimit, uint32_t rateLimitPerUser, const std::vector<User>& recipients, const std::string& icon, Snowflake ownerId, Snowflake applicationId, Snowflake parentId, Iso8601 lastPinTimestamp)
+	Channel::Channel(Snowflake id, ChannelType type, Snowflake guildId, uint16_t position, const std::vector<Overwrite>& permissionOverwrites, const std::string& name, const std::string& topic, bool nsfw, Snowflake lastMessageId, uint32_t bitrate, uint32_t userLimit, uint32_t rateLimitPerUser, const std::vector<User>& recipients, const std::string& icon, Snowflake ownerId, Snowflake applicationId, Snowflake parentId, Iso8601 lastPinTimestamp)
 		: m_Id(id), m_Type(type), m_GuildId(guildId), m_Position(position), m_PermissionOverwrites(permissionOverwrites), m_Name(name), m_Topic(topic), m_Nsfw(nsfw), m_LastMessageId(lastMessageId), m_Bitrate(bitrate), m_UserLimit(userLimit), m_RateLimitPerUser(rateLimitPerUser), m_Recipients(recipients), m_Icon(icon), m_OwnerId(ownerId), m_ApplicationId(applicationId), m_ParentId(parentId), m_LastPinTimestamp(lastPinTimestamp)
 
 	{
@@ -38,12 +38,12 @@ namespace HyperDiscord
 		return m_GuildId;
 	};
 
-	void Channel::SetPosition(uint32_t position)
+	void Channel::SetPosition(uint16_t position)
 	{
 		m_Position = position;
 	}
 
-	uint32_t Channel::GetPosition() const
+	uint16_t Channel::GetPosition() const
 	{
 		return m_Position;
 	};
