@@ -6,6 +6,14 @@
 
 /* Networking */
 #include "Networking/NetworkClient.h"
+#include "Networking/Gateway/Activity.h"
+#include "Networking/Gateway/ActivityAssets.h"
+#include "Networking/Gateway/ActivityEmoji.h"
+#include "Networking/Gateway/ActivityParty.h"
+#include "Networking/Gateway/ActivitySecrets.h"
+#include "Networking/Gateway/ActivityTimestamp.h"
+#include "Networking/Gateway/ClientStatus.h"
+#include "Networking/Gateway/PresenceUpdate.h"
 
 /* Objects */
 #include "Objects/Channel.h"
