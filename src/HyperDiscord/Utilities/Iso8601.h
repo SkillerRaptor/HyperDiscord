@@ -17,6 +17,6 @@ namespace HyperDiscord
 		uint16_t m_Milliseconds;
 
 	public:
-		Iso8601(const std::string& timeStamp);
+		Iso8601(const std::string& timeStamp = "");
 	};
 }
