@@ -35,64 +35,21 @@ namespace HyperDiscord
 	};
 
 	/* https://discord.com/developers/docs/resources/user#user-object-user-structure */
-	class User
+	struct User
 	{
-	private:
-		Snowflake m_Id;
-		std::string m_Username;
-		std::string m_Discriminator;
-		std::string m_Avatar;
-		bool m_Bot;
-		bool m_System;
-		bool m_MfaEnabled;
-		std::string m_Locale;
-		bool m_Verified;
-		std::string m_Email;
-		uint32_t m_Flags;
-		PremiumType m_PremiumType;
-		uint32_t m_PublicFlags;
-
-	public:
-		User(Snowflake id, const std::string& username, const std::string& discriminator, const std::string& avatar, bool bot, bool system, bool mfaEnabled, const std::string& locale, bool verified, const std::string& email, uint32_t flags, PremiumType premiumType,uint32_t publicFlags);
-
-		void SetId(Snowflake id);
-		Snowflake GetId() const;
-
-		void SetUsername(const std::string& username);
-		const std::string& GetUsername() const;
-
-		void SetDiscriminator(const std::string& discriminator);
-		const std::string& GetDiscriminator() const;
-
-		void SetAvatar(const std::string& avatar);
-		const std::string& GetAvatar() const;
-
-		void SetBot(bool bot);
-		bool IsBot() const;
-
-		void SetSystem(bool system);
-		bool IsSystem() const;
-
-		void SetMfaEnabled(bool mfaEnabled);
-		bool IsMfaEnabled() const;
-
-		void SetLocale(const std::string& locale);
-		const std::string& GetLocale() const;
-
-		void SetVerified(bool verified);
-		bool IsVerified() const;
-
-		void SetEmail(const std::string& email);
-		const std::string& GetEmail() const;
-
-		void SetFlags(uint32_t flags);
-		uint32_t GetFlags() const;
-
-		void SetPremiumType(PremiumType premiumType);
-		PremiumType GetPremiumType() const;
-
-		void SetPublicFlags(uint32_t publicFlags);
-		uint32_t GetPublicFlags() const;
+		Snowflake Id;
+		std::string Username;
+		std::string Discriminator;
+		std::string Avatar;
+		bool Bot;
+		bool System;
+		bool MfaEnabled;
+		std::string Locale;
+		bool Verified;
+		std::string Email;
+		uint32_t Flags;
+		PremiumType PremiumType;
+		uint32_t PublicFlags;
 
 		friend std::ostream& operator<<(std::ostream& os, const User& user);
 	};
@@ -116,19 +73,19 @@ namespace HyperDiscord
 
 	inline std::ostream& operator<<(std::ostream& os, const User& user)
 	{
-		os << "Id: " << user.GetId()
-			<< ", Username: " << user.GetUsername()
-			<< ", Discriminator: " << user.GetDiscriminator()
-			<< ", Avatar: " << user.GetAvatar()
-			<< ", Bot: " << user.IsBot()
-			<< ", System: " << user.IsSystem()
-			<< ", Enabled: " << user.IsMfaEnabled()
-			<< ", Locale: " << user.GetLocale()
-			<< ", Verified: " << user.IsVerified()
-			<< ", Email: " << user.GetEmail()
-			<< ", Flags: " << user.GetFlags()
-			<< ", Premium Type: " << user.GetPremiumType()
-			<< ", Public Flags: " << user.GetPublicFlags();
+		os << "Id: " << user.Id
+			<< ", Username: " << user.Username
+			<< ", Discriminator: " << user.Discriminator
+			<< ", Avatar: " << user.Avatar
+			<< ", Bot: " << user.Bot
+			<< ", System: " << user.System
+			<< ", Enabled: " << user.MfaEnabled
+			<< ", Locale: " << user.Locale
+			<< ", Verified: " << user.Verified
+			<< ", Email: " << user.Email
+			<< ", Flags: " << user.Flags
+			<< ", Premium Type: " << user.PremiumType
+			<< ", Public Flags: " << user.PublicFlags;
 		return os;
 	}
 }

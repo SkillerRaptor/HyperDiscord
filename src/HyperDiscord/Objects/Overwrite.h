@@ -14,28 +14,12 @@ namespace HyperDiscord
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure */
-	class Overwrite
+	struct Overwrite
 	{
-	private:
-		Snowflake m_Id;
-		OverwriteType m_Type;
-		std::string m_Allow;
-		std::string m_Deny;
-
-	public:
-		Overwrite(Snowflake id, OverwriteType type, const std::string& allow, const std::string& deny);
-
-		void SetId(Snowflake id);
-		Snowflake GetId() const;
-
-		void SetType(OverwriteType type);
-		OverwriteType GetType() const;
-
-		void SetAllow(const std::string& allow);
-		const std::string& GetAllow() const;
-
-		void SetDeny(const std::string& deny);
-		const std::string& GetDeny() const;
+		Snowflake Id;
+		OverwriteType Type;
+		std::string Allow;
+		std::string Deny;
 
 		friend std::ostream& operator<<(std::ostream& os, const Overwrite& overwrite);
 	};
@@ -56,10 +40,10 @@ namespace HyperDiscord
 
 	inline std::ostream& operator<<(std::ostream& os, const Overwrite& overwrite)
 	{
-		os << "Id: " << overwrite.GetId()
-			<< ", Type: " << overwrite.GetType()
-			<< ", Allow: " << overwrite.GetAllow()
-			<< ", Deny: " << overwrite.GetDeny();
+		os << "Id: " << overwrite.Id
+			<< ", Type: " << overwrite.Type
+			<< ", Allow: " << overwrite.Allow
+			<< ", Deny: " << overwrite.Deny;
 		return os;
 	}
 }
