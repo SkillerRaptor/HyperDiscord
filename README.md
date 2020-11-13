@@ -1,6 +1,6 @@
 ﻿# HyperDiscord API
 ![](https://img.shields.io/badge/license-MIT-yellow)
-![](https://img.shields.io/badge/build-passing-green)
+![](https://github.com/SkillerRaptor/HyperDiscord/workflows/build/badge.svg)
 
 ## Dependencies & License
 - [cpp-httplib](https://github.com/yhirose/cpp-httplib/blob/master/LICENSE) Copyright (c) MIT, yhirose 2017
