@@ -1,11 +1,10 @@
 ﻿# HyperDiscord API
 ![](https://img.shields.io/badge/license-MIT-yellow)
 ![](https://github.com/SkillerRaptor/HyperDiscord/workflows/build/badge.svg)
+[![Trello](https://img.shields.io/badge/board-trello-blue.svg)](https://trello.com/b/iNb0XH9O/hyperdiscord)
 
 ## Dependencies & License
-- [cpp-httplib](https://github.com/yhirose/cpp-httplib/blob/master/LICENSE) Copyright (c) MIT, yhirose 2017
 - [json](https://github.com/nlohmann/json/blob/develop/LICENSE.MIT) Copyright (c) MIT, Niels Lohmann 2013-2020
-- [openssl](https://github.com/openssl/openssl/blob/master/LICENSE.txt) Copyright (c) Apache License 2.0
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
