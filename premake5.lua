@@ -32,7 +32,7 @@ group "Dependencies"
 group ""
 
 project "HyperDiscord"
-	kind "StaticLib"
+	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++latest"
 	staticruntime "on"

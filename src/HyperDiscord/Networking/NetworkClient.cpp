@@ -5,14 +5,10 @@ namespace HyperDiscord
 	NetworkClient::NetworkClient(Token token)
 		: m_Token(token)
 	{
-		m_SSLClient = new httplib::SSLClient("discord.com");
-		m_SSLClient->set_default_headers({{ "Authorization", token.GetAuthorization() }});
-		m_SSLClient->set_keep_alive(true);
 	}
 
 	NetworkClient::~NetworkClient()
 	{
-		m_SSLClient->set_keep_alive(false);
 	}
 
 	Channel NetworkClient::GetChannel(Snowflake channelId) const
@@ -67,8 +63,7 @@ namespace HyperDiscord
 		std::stringstream ss;
 		ss << "/api/v8" << path;
 
-		httplib::Result result = m_SSLClient->Get(ss.str().c_str());
-		return nlohmann::json::parse(result->body);
+		return nlohmann::json::parse("");
 	}
 
 	bool NetworkClient::Check(nlohmann::json json, const std::string& key) const

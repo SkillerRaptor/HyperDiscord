@@ -1,8 +1,8 @@
 #pragma once
 
-#define CPPHTTPLIB_OPENSSL_SUPPORT
-#include <httplib.h>
 #include <json.hpp>
+
+#include <sstream>
 
 #include "Core/Token.h"
 #include "Objects/Channel.h"
@@ -14,7 +14,6 @@ namespace HyperDiscord
 	{
 	private:
 		Token m_Token;
-		httplib::SSLClient* m_SSLClient;
 
 	public:
 		NetworkClient(Token token);
