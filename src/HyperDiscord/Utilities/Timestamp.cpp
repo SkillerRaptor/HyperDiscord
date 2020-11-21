@@ -1,5 +1,7 @@
 #include "Timestamp.h"
 
+#include <chrono>
+
 namespace HyperDiscord
 {
 	Timestamp::Timestamp(uint64_t milliseconds)
@@ -25,6 +27,11 @@ namespace HyperDiscord
 	uint64_t Timestamp::GetHours() const
 	{
 		return m_Milliseconds / 3600000;
+	}
+
+	Timestamp Timestamp::Now()
+	{
+		return Timestamp(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 	}
 
 	Timestamp Timestamp::ConvertFromSeconds(uint64_t seconds)

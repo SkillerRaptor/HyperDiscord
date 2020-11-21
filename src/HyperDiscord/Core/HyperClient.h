@@ -15,13 +15,16 @@ namespace HyperDiscord
 	private:
 		Token m_Token;
 		NetworkClient m_NetworkClient;
+		Timestamp m_Uptime;
 
 	public:
 		HyperClient(Token token);
-		HyperClient(const std::string token, TokenType tokenType);
+		HyperClient(const std::string& token, TokenType tokenType);
 		~HyperClient();
 
-		Channel GetChannel(Snowflake channelId);
+
+		const Token& GetToken() const;
+		Timestamp GetUptime() const;
 
 		void Run();
 	};
