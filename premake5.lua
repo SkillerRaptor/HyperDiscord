@@ -25,19 +25,14 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["httplib"] = "%{wks.location}/vendor/httplib"
 IncludeDir["json"] = "%{wks.location}/vendor/json"
-IncludeDir["openssl"] = "%{wks.location}/vendor/openssl/include"
 
 group "Dependencies"
 	include "vendor/premake"
-	--include "vendor/httplib"
-	--include "vendor/json"
-	--include "vendor/openssl"
 group ""
 
 project "HyperDiscord"
-	kind "ConsoleApp"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++latest"
 	staticruntime "on"
@@ -60,15 +55,7 @@ project "HyperDiscord"
 	{
 		"src",
 		"src/HyperDiscord",
-		"%{IncludeDir.httplib}",
-		"%{IncludeDir.json}",
-		"%{IncludeDir.openssl}",
-	}
-
-	links
-	{
-		"%{wks.location}/vendor/openssl/lib/libcrypto.lib",
-		"%{wks.location}/vendor/openssl/lib/libssl.lib"
+		"%{IncludeDir.json}"
 	}
 
 	filter "system:windows"
