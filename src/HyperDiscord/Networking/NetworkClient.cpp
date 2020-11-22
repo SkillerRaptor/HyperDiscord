@@ -3,7 +3,7 @@
 namespace HyperDiscord
 {
 	NetworkClient::NetworkClient(Token token)
-		: m_Token(token), m_HTTPClient(m_Token)
+		: m_Token(token), m_HTTPClient(m_Token), m_WebSocketClient()
 	{
 	}
 

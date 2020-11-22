@@ -9,6 +9,7 @@
 #include <sstream>
 
 #include "HTTPClient.h"
+#include "WebSocketClient.h"
 #include "Core/Token.h"
 
 namespace HyperDiscord
@@ -19,6 +20,7 @@ namespace HyperDiscord
 		Token m_Token;
 
 		HTTPClient m_HTTPClient;
+		WebSocketClient m_WebSocketClient;
 
 	public:
 		NetworkClient(Token token);
