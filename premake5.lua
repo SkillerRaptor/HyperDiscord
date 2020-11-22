@@ -60,7 +60,9 @@ project "HyperDiscord"
 
 	links
 	{
-		"Winhttp.lib"
+		"Winhttp.lib",
+		"fwpuclnt.lib",
+		"ntdsapi.lib"
 	}
 
 	filter "system:windows"
