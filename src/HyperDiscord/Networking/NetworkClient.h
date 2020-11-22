@@ -1,10 +1,14 @@
 #pragma once
 
+#ifndef _WIN32
+#error HyperDiscord is only supporting Windows in the moment
+#endif
+
 #include <json.hpp>
 
 #include <sstream>
 
-#include "HTTPClient.hpp"
+#include "HTTPClient.h"
 #include "Core/Token.h"
 
 namespace HyperDiscord

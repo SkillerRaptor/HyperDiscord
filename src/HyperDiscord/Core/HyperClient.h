@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef _WIN32
+#error HyperDiscord is only supporting Windows in the moment
+#endif
+
 #include <string>
 #include <vector>
 
@@ -7,6 +11,7 @@
 #include "Networking/NetworkClient.h"
 #include "Objects/Channel.h"
 #include "Objects/Snowflake.h"
+#include "Utilities/Timestamp.h"
 
 namespace HyperDiscord
 {

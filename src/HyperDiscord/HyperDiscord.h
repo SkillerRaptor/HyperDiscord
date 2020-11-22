@@ -9,6 +9,7 @@
 #include "Core/Token.h"
 
 /* Networking */
+#include "Networking/HTTPClient.h"
 #include "Networking/NetworkClient.h"
 #include "Networking/Gateway/Activity.h"
 #include "Networking/Gateway/ActivityAssets.h"
@@ -24,6 +25,7 @@
 #include "Objects/Emoji.h"
 #include "Objects/Guild.h"
 #include "Objects/GuildMember.h"
+#include "Objects/Message.h"
 #include "Objects/Overwrite.h"
 #include "Objects/Role.h"
 #include "Objects/Snowflake.h"
