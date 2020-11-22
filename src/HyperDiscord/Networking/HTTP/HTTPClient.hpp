@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma comment(lib, "Winhttp.lib")
-
 #include <Windows.h>
 #include <winhttp.h>
 

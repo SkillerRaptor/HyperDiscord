@@ -58,6 +58,11 @@ project "HyperDiscord"
 		"%{IncludeDir.json}"
 	}
 
+	links
+	{
+		"Winhttp.lib"
+	}
+
 	filter "system:windows"
 		systemversion "latest"
 
