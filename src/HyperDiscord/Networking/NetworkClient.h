@@ -4,9 +4,8 @@
 
 #include <sstream>
 
+#include "HTTPClient.hpp"
 #include "Core/Token.h"
-#include "Objects/Channel.h"
-#include "Objects/Snowflake.h"
 
 namespace HyperDiscord
 {
@@ -15,20 +14,29 @@ namespace HyperDiscord
 	private:
 		Token m_Token;
 
+		HTTPClient m_HTTPClient;
+
 	public:
 		NetworkClient(Token token);
 		~NetworkClient();
 
-		Channel GetChannel(Snowflake channelId) const;
+		const std::string Get(const std::string& path);
+		const std::string Get(const std::string& path, const Headers& headers);
 
-	private:
-		nlohmann::json Get(const std::string& path) const;
-		//nlohmann::json Post(const std::string& path);
-		//nlohmann::json Patch(const std::string& path);
-		//nlohmann::json Delete(const std::string& path);
+		const std::string Post(const std::string& path);
+		const std::string Post(const std::string& path, const std::string& body);
+		const std::string Post(const std::string& path, const Headers& headers, const std::string& body);
 
-		bool Check(nlohmann::json json, const std::string& key) const;
-		bool Contains(nlohmann::json json, const std::string& key) const;
-		bool IsNull(nlohmann::json json, const std::string& key) const;
+		const std::string Put(const std::string& path);
+		const std::string Put(const std::string& path, const std::string& body);
+		const std::string Put(const std::string& path, const Headers& headers, const std::string& body);
+
+		const std::string Patch(const std::string& path);
+		const std::string Patch(const std::string& path, const std::string& body);
+		const std::string Patch(const std::string& path, const Headers& headers, const std::string& body);
+
+		const std::string Delete(const std::string& path);
+		const std::string Delete(const std::string& path, const std::string& body);
+		const std::string Delete(const std::string& path, const Headers& headers, const std::string& body);
 	};
 }

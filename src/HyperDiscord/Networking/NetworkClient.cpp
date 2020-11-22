@@ -3,7 +3,7 @@
 namespace HyperDiscord
 {
 	NetworkClient::NetworkClient(Token token)
-		: m_Token(token)
+		: m_Token(token), m_HTTPClient(m_Token)
 	{
 	}
 
@@ -11,73 +11,73 @@ namespace HyperDiscord
 	{
 	}
 
-	Channel NetworkClient::GetChannel(Snowflake channelId) const
+	const std::string NetworkClient::Get(const std::string& path)
 	{
-		std::stringstream ss;
-		ss << "/channels/" << channelId;
-
-		nlohmann::json channel = Get(ss.str());
-
-		Channel channelStruct{};
-
-		Snowflake id = Snowflake(std::stoll((std::string) channel.at("id")));
-		ChannelType type = ChannelType((uint32_t) channel.at("type"));
-
-		if(Check(channel, "guild_id")) channelStruct.GuildId = Snowflake(std::stoll((std::string) channel.at("guild_id")));
-
-		if (Check(channel, "position")) channelStruct.Position = (uint32_t) channel.at("position");
-
-		// TODO: Adding Permission Overwrites
-
-		if (Check(channel, "name")) channelStruct.Name = (std::string) channel.at("name");
-
-		if (Check(channel, "topic")) channelStruct.Name = (std::string) channel.at("topic");
-
-		if (Check(channel, "nsfw")) channelStruct.Nsfw = (bool) channel.at("nsfw");
-
-		if (Check(channel, "last_message_id")) channelStruct.LastMessageId = Snowflake(std::stoll((std::string) channel.at("last_message_id")));
-
-		if (Check(channel, "bitrate")) channelStruct.Bitrate = (uint32_t) channel.at("bitrate");
-
-		if (Check(channel, "user_limit")) channelStruct.UserLimit = (uint32_t) channel.at("user_limit");
-
-		if (Check(channel, "rate_limit_per_user")) channelStruct.RateLimitPerUser = (uint32_t) channel.at("rate_limit_per_user");
-
-		// TODO: Adding Recipients
-
-		if (Check(channel, "icon")) channelStruct.Icon = (std::string) channel.at("icon");
-
-		if (Check(channel, "ownerId")) channelStruct.LastMessageId = Snowflake(std::stoll((std::string) channel.at("owner_id")));
-
-		if (Check(channel, "applicationId")) channelStruct.LastMessageId = Snowflake(std::stoll((std::string) channel.at("application_id")));
-
-		if (Check(channel, "parentId")) channelStruct.LastMessageId = Snowflake(std::stoll((std::string) channel.at("parent_id")));
-
-		// TODO: Adding Last Pin Timestamp
-
-		return channelStruct;
+		return m_HTTPClient.Get(path);
 	}
 
-	nlohmann::json NetworkClient::Get(const std::string& path) const
+	const std::string NetworkClient::Get(const std::string& path, const Headers& headers)
 	{
-		std::stringstream ss;
-		ss << "/api/v8" << path;
-
-		return nlohmann::json::parse("");
+		return m_HTTPClient.Get(path, headers);
 	}
 
-	bool NetworkClient::Check(nlohmann::json json, const std::string& key) const
+	const std::string NetworkClient::Post(const std::string& path)
 	{
-		return Contains(json, key) && !IsNull(json, key);
+		return m_HTTPClient.Post(path);
 	}
 
-	bool NetworkClient::Contains(nlohmann::json json, const std::string& key) const
+	const std::string NetworkClient::Post(const std::string& path, const std::string& body)
 	{
-		return json.find(key) != json.end();
+		return m_HTTPClient.Post(path, body);
 	}
 
-	bool NetworkClient::IsNull(nlohmann::json json, const std::string& key) const
+	const std::string NetworkClient::Post(const std::string& path, const Headers& headers, const std::string& body)
 	{
-		return json.at(key).is_null();
+		return m_HTTPClient.Post(path, headers, body);
+	}
+
+	const std::string NetworkClient::Put(const std::string& path)
+	{
+		return m_HTTPClient.Put(path);
+	}
+
+	const std::string NetworkClient::Put(const std::string& path, const std::string& body)
+	{
+		return m_HTTPClient.Put(path, body);
+	}
+
+	const std::string NetworkClient::Put(const std::string& path, const Headers& headers, const std::string& body)
+	{
+		return m_HTTPClient.Put(path, headers, body);
+	}
+
+	const std::string NetworkClient::Patch(const std::string& path)
+	{
+		return m_HTTPClient.Patch(path);
+	}
+
+	const std::string NetworkClient::Patch(const std::string& path, const std::string& body)
+	{
+		return m_HTTPClient.Patch(path, body);
+	}
+
+	const std::string NetworkClient::Patch(const std::string& path, const Headers& headers, const std::string& body)
+	{
+		return m_HTTPClient.Patch(path, headers, body);
+	}
+
+	const std::string NetworkClient::Delete(const std::string& path)
+	{
+		return m_HTTPClient.Delete(path);
+	}
+
+	const std::string NetworkClient::Delete(const std::string& path, const std::string& body)
+	{
+		return m_HTTPClient.Delete(path, body);
+	}
+
+	const std::string NetworkClient::Delete(const std::string& path, const Headers& headers, const std::string& body)
+	{
+		return m_HTTPClient.Delete(path, headers, body);
 	}
 }
