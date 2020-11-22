@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef _WIN32
+#error HyperDiscord is only supporting Windows in the moment
+#endif
+
 /* Core */
 #include "Core/HyperClient.h"
 #include "Core/Token.h"

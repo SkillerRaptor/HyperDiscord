@@ -83,9 +83,8 @@ namespace HyperDiscord
 	};
 
 	/* https://discord.com/developers/docs/resources/guild#guild-object-guild-structure */
-	class Guild
+	struct Guild
 	{
-	private:
 		Snowflake Id;
 		std::string Name;
 		std::string Icon;
