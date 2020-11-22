@@ -26,6 +26,6 @@ namespace HyperDiscord
 		const Token& GetToken() const;
 		Timestamp GetUptime() const;
 
-		void Run();
+		void Update();
 	};
 }

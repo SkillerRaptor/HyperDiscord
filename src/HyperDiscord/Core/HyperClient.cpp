@@ -27,8 +27,8 @@ namespace HyperDiscord
 		return Timestamp::Now() - m_Uptime;
 	}
 
-	void HyperClient::Run()
+	void HyperClient::Update()
 	{
-		while (true);
+
 	}
 }
