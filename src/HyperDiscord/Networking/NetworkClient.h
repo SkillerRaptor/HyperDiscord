@@ -4,9 +4,8 @@
 #error HyperDiscord is only supporting Windows in the moment
 #endif
 
-#include <json.hpp>
-
 #include <sstream>
+#include <thread>
 
 #include "HTTPClient.h"
 #include "WebSocketClient.h"
@@ -18,9 +17,14 @@ namespace HyperDiscord
 	{
 	private:
 		Token m_Token;
+		std::thread m_ListeningThread;
+		std::thread m_HeartBeatingThread;
+		bool m_Running = true;
+		uint32_t m_HeartBeat = 0;
+		uint32_t m_LastSequenceNumber = 0;
 
-		HTTPClient m_HTTPClient;
-		WebSocketClient m_WebSocketClient;
+		HTTPClient* m_HTTPClient;
+		WebSocketClient* m_WebSocketClient;
 
 	public:
 		NetworkClient(Token token);
@@ -44,5 +48,12 @@ namespace HyperDiscord
 		const std::string Delete(const std::string& path);
 		const std::string Delete(const std::string& path, const std::string& body);
 		const std::string Delete(const std::string& path, const Headers& headers, const std::string& body);
+
+		const std::string Listen();
+		const std::string SendData(const std::string& message);
+
+	private:
+		void Listening();
+		void HeartBeating();
 	};
 }

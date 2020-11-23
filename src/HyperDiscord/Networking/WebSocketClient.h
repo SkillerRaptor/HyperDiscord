@@ -21,12 +21,14 @@ namespace HyperDiscord
 		HINTERNET m_Connection;
 		HINTERNET m_WebSocket;
 
+		std::string m_LastRealMessage;
+
 	public:
 		WebSocketClient();
 		~WebSocketClient();
 
 		const std::string Listen();
-		const std::string SendMessage(const std::string& message);
+		const std::string SendData(const std::string& message);
 
 	private:
 		void Init();

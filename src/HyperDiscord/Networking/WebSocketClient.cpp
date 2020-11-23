@@ -1,5 +1,7 @@
 #include "WebSocketClient.h"
 
+#include <json.hpp>
+
 #include <algorithm>
 #include <iostream>
 
@@ -66,7 +68,6 @@ namespace HyperDiscord
 		WinHttpCloseHandle(request);
 
 		std::cout << "[HyperDiscord] Websocket Initialized" << std::endl;
-
 	}
 
 	void WebSocketClient::Shutdown()
@@ -128,8 +129,6 @@ namespace HyperDiscord
 			std::fill(outBuffer, outBuffer + outBufferLength, 0);
 			outBufferPtr = outBuffer;
 			bytesTransfered = 0;
-			//std::cerr << "[HyperDiscord] Not enough memory." << std::endl;
-			//exit(-1);
 
 			DWORD error = WinHttpWebSocketReceive(m_WebSocket, outBufferPtr, outBufferLength - 1, &bytesTransfered, &bufferType);
 			if (error != ERROR_SUCCESS)
@@ -171,10 +170,13 @@ namespace HyperDiscord
 			exit(-1);
 		}
 
+		if (nlohmann::json::parse(output)["op"] != 0)
+			m_LastRealMessage = output;
+
 		return output;
 	}
 
-	const std::string WebSocketClient::SendMessage(const std::string& message)
+	const std::string WebSocketClient::SendData(const std::string& message)
 	{
 		DWORD error;
 		error = WinHttpWebSocketSend(m_WebSocket, WINHTTP_WEB_SOCKET_UTF8_MESSAGE_BUFFER_TYPE, message.empty() ? nullptr : (void*)message.data(), message.empty() ? 0 : message.length());
@@ -184,6 +186,15 @@ namespace HyperDiscord
 			exit(-1);
 		}
 
-		return Listen();
+		std::string copyMessage = "";
+
+		do 
+		{
+			copyMessage = m_LastRealMessage;
+		} while (m_LastRealMessage == "");
+
+		m_LastRealMessage = "";
+
+		return copyMessage;
 	}
 }

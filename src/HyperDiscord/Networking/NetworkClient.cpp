@@ -1,83 +1,143 @@
 #include "NetworkClient.h"
 
+#include <json.hpp>
+
+#include <iostream>
+#include <ctime>
+
 namespace HyperDiscord
 {
 	NetworkClient::NetworkClient(Token token)
-		: m_Token(token), m_HTTPClient(m_Token), m_WebSocketClient()
+		: m_Token(token)
 	{
+		m_HTTPClient = new HTTPClient(m_Token);
+		m_WebSocketClient = new WebSocketClient();
+
+		m_HeartBeat = nlohmann::json::parse(m_WebSocketClient->Listen())["d"]["heartbeat_interval"];
+		nlohmann::json ready = nlohmann::json::parse(m_WebSocketClient->SendData("{\"op\":2,\"d\":{\"token\":\"Nzc5NzcwMTY5Mzk1NTExMzY2.X7lXjw.qmOW69K87as4_pBNIYG5UIqx3Ps\",\"intents\":513,\"properties\":{\"$os\":\"windows\",\"$browser\":\"HyperDiscord\",\"$device\":\"HyperDiscord\"},\"presence\":{\"activities\":[{\"name\":\"some Hentais\",\"type\":3}],\"status\":\"dnd\",\"since\":91879201,\"afk\":false},\"intents\":7}}"));
+
+		m_HeartBeatingThread = std::thread(&NetworkClient::HeartBeating, this);
+		m_ListeningThread = std::thread(&NetworkClient::Listening, this);
 	}
 
 	NetworkClient::~NetworkClient()
 	{
+		m_Running = false;
+
+		delete m_HTTPClient;
+		delete m_WebSocketClient;
+	}
+
+	void NetworkClient::Listening()
+	{
+		while (m_Running)
+		{
+			std::string message = m_WebSocketClient->Listen();
+			if (!message.empty() && message != "")
+			{
+				nlohmann::json jsonMessage = nlohmann::json::parse(message);
+				if (jsonMessage["s"].is_null() && jsonMessage["s"].is_number())
+					m_LastSequenceNumber = jsonMessage["s"];
+				std::cout << jsonMessage.dump(4) << std::endl;
+			}
+		}
+	}
+
+	void NetworkClient::HeartBeating()
+	{
+		unsigned int currentTime = clock();
+		while (m_Running)
+		{
+			time_t check = (float)(clock() - currentTime) / CLOCKS_PER_SEC * 1000;
+
+			while (check >= m_HeartBeat)
+			{
+				m_WebSocketClient->SendData("{\"op\":1,\"d\":" + std::to_string(m_LastSequenceNumber) + "}");
+				std::cout << "[HyperDiscord] HeartBeating" << std::endl;
+
+				currentTime = clock();
+				check = 0;
+			}
+		}
 	}
 
 	const std::string NetworkClient::Get(const std::string& path)
 	{
-		return m_HTTPClient.Get(path);
+		return m_HTTPClient->Get(path);
 	}
 
 	const std::string NetworkClient::Get(const std::string& path, const Headers& headers)
 	{
-		return m_HTTPClient.Get(path, headers);
+		return m_HTTPClient->Get(path, headers);
 	}
 
 	const std::string NetworkClient::Post(const std::string& path)
 	{
-		return m_HTTPClient.Post(path);
+		return m_HTTPClient->Post(path);
 	}
 
 	const std::string NetworkClient::Post(const std::string& path, const std::string& body)
 	{
-		return m_HTTPClient.Post(path, body);
+		return m_HTTPClient->Post(path, body);
 	}
 
 	const std::string NetworkClient::Post(const std::string& path, const Headers& headers, const std::string& body)
 	{
-		return m_HTTPClient.Post(path, headers, body);
+		return m_HTTPClient->Post(path, headers, body);
 	}
 
 	const std::string NetworkClient::Put(const std::string& path)
 	{
-		return m_HTTPClient.Put(path);
+		return m_HTTPClient->Put(path);
 	}
 
 	const std::string NetworkClient::Put(const std::string& path, const std::string& body)
 	{
-		return m_HTTPClient.Put(path, body);
+		return m_HTTPClient->Put(path, body);
 	}
 
 	const std::string NetworkClient::Put(const std::string& path, const Headers& headers, const std::string& body)
 	{
-		return m_HTTPClient.Put(path, headers, body);
+		return m_HTTPClient->Put(path, headers, body);
 	}
 
 	const std::string NetworkClient::Patch(const std::string& path)
 	{
-		return m_HTTPClient.Patch(path);
+		return m_HTTPClient->Patch(path);
 	}
 
 	const std::string NetworkClient::Patch(const std::string& path, const std::string& body)
 	{
-		return m_HTTPClient.Patch(path, body);
+		return m_HTTPClient->Patch(path, body);
 	}
 
 	const std::string NetworkClient::Patch(const std::string& path, const Headers& headers, const std::string& body)
 	{
-		return m_HTTPClient.Patch(path, headers, body);
+		return m_HTTPClient->Patch(path, headers, body);
 	}
 
 	const std::string NetworkClient::Delete(const std::string& path)
 	{
-		return m_HTTPClient.Delete(path);
+		return m_HTTPClient->Delete(path);
 	}
 
 	const std::string NetworkClient::Delete(const std::string& path, const std::string& body)
 	{
-		return m_HTTPClient.Delete(path, body);
+		return m_HTTPClient->Delete(path, body);
 	}
 
 	const std::string NetworkClient::Delete(const std::string& path, const Headers& headers, const std::string& body)
 	{
-		return m_HTTPClient.Delete(path, headers, body);
+		return m_HTTPClient->Delete(path, headers, body);
+	}
+
+	const std::string NetworkClient::Listen()
+	{
+		return m_WebSocketClient->Listen();
+	}
+
+	const std::string NetworkClient::SendData(const std::string& message)
+	{
+		return m_WebSocketClient->SendData(message);
 	}
 }
