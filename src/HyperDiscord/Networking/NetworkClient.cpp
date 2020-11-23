@@ -44,7 +44,6 @@ namespace HyperDiscord
 
 				/* Handle Events */
 				/* TODO: GUILD_CREATE */
-				std::cout << jsonMessage.dump(4) << std::endl;
 				if (!jsonMessage["t"].is_null() && jsonMessage["t"].is_string())
 				{
 					std::string eventName = jsonMessage["t"];
