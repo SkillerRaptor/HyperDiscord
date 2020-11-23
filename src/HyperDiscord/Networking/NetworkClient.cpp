@@ -14,7 +14,7 @@ namespace HyperDiscord
 		m_WebSocketClient = new WebSocketClient();
 
 		m_HeartBeat = nlohmann::json::parse(m_WebSocketClient->Listen())["d"]["heartbeat_interval"];
-		nlohmann::json ready = nlohmann::json::parse(m_WebSocketClient->SendData("{\"op\":2,\"d\":{\"token\":\"Nzc5NzcwMTY5Mzk1NTExMzY2.X7lXjw.qmOW69K87as4_pBNIYG5UIqx3Ps\",\"intents\":513,\"properties\":{\"$os\":\"windows\",\"$browser\":\"HyperDiscord\",\"$device\":\"HyperDiscord\"},\"presence\":{\"activities\":[{\"name\":\"some Hentais\",\"type\":3}],\"status\":\"dnd\",\"since\":91879201,\"afk\":false},\"intents\":7}}"));
+		nlohmann::json ready = nlohmann::json::parse(m_WebSocketClient->SendData("{\"op\":2,\"d\":{\"token\":\"" + token.GetToken() + "\",\"intents\":513,\"properties\":{\"$os\":\"windows\",\"$browser\":\"HyperDiscord\",\"$device\":\"HyperDiscord\"},\"presence\":{\"activities\":[{\"name\":\"some Hentais\",\"type\":3}],\"status\":\"dnd\",\"since\":91879201,\"afk\":false},\"intents\":7}}"));
 
 		m_HeartBeatingThread = std::thread(&NetworkClient::HeartBeating, this);
 		m_ListeningThread = std::thread(&NetworkClient::Listening, this);
@@ -48,7 +48,7 @@ namespace HyperDiscord
 		unsigned int currentTime = clock();
 		while (m_Running)
 		{
-			time_t check = (float)(clock() - currentTime) / CLOCKS_PER_SEC * 1000;
+			time_t check = (clock() - currentTime) / CLOCKS_PER_SEC * 1000;
 
 			while (check >= m_HeartBeat)
 			{
