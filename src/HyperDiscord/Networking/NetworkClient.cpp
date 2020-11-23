@@ -84,7 +84,7 @@ namespace HyperDiscord
 		unsigned int currentTime = clock();
 		while (m_Running)
 		{
-			time_t check = (clock() - currentTime) / CLOCKS_PER_SEC * 1000;
+			time_t check = (clock() - currentTime) / CLOCKS_PER_SEC * 1000UL;
 
 			while (check >= m_HeartBeat)
 			{

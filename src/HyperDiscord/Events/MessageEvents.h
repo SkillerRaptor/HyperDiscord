@@ -10,6 +10,8 @@
 #include "Objects/Message.h"
 #include "Objects/Snowflake.h"
 
+#undef GetMessage
+
 namespace HyperDiscord
 {
 	class MessageCreateEvent : public Event

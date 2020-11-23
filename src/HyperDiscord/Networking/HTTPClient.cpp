@@ -30,8 +30,6 @@ namespace HyperDiscord
 			std::cerr << "[HyperDiscord] Error " << GetLastError() << " in WinHttpConnect." << std::endl;
 			exit(-1);
 		}
-
-		std::cout << "[HyperDiscord] HTTPS Initialized" << std::endl;
 	}
 
 	void HTTPClient::Shutdown()

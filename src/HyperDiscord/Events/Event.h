@@ -35,8 +35,6 @@ namespace HyperDiscord
 	public:
 		virtual ~Event() = default;
 
-		bool Handled = false;
-
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -64,7 +62,7 @@ namespace HyperDiscord
 		{
 			if (m_Event.GetEventType() == T::GetStaticEventType())
 			{
-				m_Event.Handled = function(static_cast<T&>(m_Event));
+				function(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;

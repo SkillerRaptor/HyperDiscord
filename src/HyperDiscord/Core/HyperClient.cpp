@@ -10,7 +10,6 @@ namespace HyperDiscord
 		: m_Token(token), m_Uptime(Timestamp::Now())
 	{
 		m_NetworkClient = new NetworkClient(m_Token, m_EventFunctions);
-		std::cout << "[HyperDiscord] Started Bot" << std::endl;
 	}
 
 	HyperClient::HyperClient(const std::string& token, TokenType tokenType)

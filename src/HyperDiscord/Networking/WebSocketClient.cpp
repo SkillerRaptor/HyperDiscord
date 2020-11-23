@@ -66,8 +66,6 @@ namespace HyperDiscord
 		}
 
 		WinHttpCloseHandle(request);
-
-		std::cout << "[HyperDiscord] Websocket Initialized" << std::endl;
 	}
 
 	void WebSocketClient::Shutdown()
@@ -89,7 +87,8 @@ namespace HyperDiscord
 			exit(-1);
 		}
 
-		std::cout << "[HyperDiscord] The server closed the connection with status code: '" << status << "' and reason: '" << reasonBuffer << "'" << std::endl;
+		if (status != 1000)
+			std::cout << "[HyperDiscord] The server closed the connection with status code: '" << status << "' and reason: '" << reasonBuffer << "'" << std::endl;
 
 		WinHttpCloseHandle(m_WebSocket);
 		WinHttpCloseHandle(m_Connection);
@@ -158,7 +157,7 @@ namespace HyperDiscord
 				exit(-1);
 			}
 
-			std::cout << "[HyperDiscord] The server closed the connection with status code: '" << status << "' and reason: '" << reasonBuffer << "'" << std::endl;
+			std::cerr << "[HyperDiscord] The server closed the connection with status code: '" << status << "' and reason: '" << reasonBuffer << "'" << std::endl;
 			exit(0);
 		}
 
@@ -188,7 +187,7 @@ namespace HyperDiscord
 
 		std::string copyMessage = "";
 
-		do 
+		do
 		{
 			copyMessage = m_LastRealMessage;
 		} while (m_LastRealMessage == "");
