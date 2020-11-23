@@ -4,12 +4,15 @@
 #error HyperDiscord is only supporting Windows in the moment
 #endif
 
+#include <functional>
 #include <sstream>
 #include <thread>
+#include <vector>
 
 #include "HTTPClient.h"
 #include "WebSocketClient.h"
 #include "Core/Token.h"
+#include "Events/Event.h"
 
 namespace HyperDiscord
 {
@@ -23,11 +26,13 @@ namespace HyperDiscord
 		uint32_t m_HeartBeat = 0;
 		uint32_t m_LastSequenceNumber = 0;
 
+		std::vector<std::function<void(Event&)>>& m_EventFunctions;
+
 		HTTPClient* m_HTTPClient;
 		WebSocketClient* m_WebSocketClient;
 
 	public:
-		NetworkClient(Token token);
+		NetworkClient(Token token, std::vector<std::function<void(Event&)>>& eventFunctions);
 		~NetworkClient();
 
 		const std::string Get(const std::string& path);

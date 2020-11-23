@@ -4,6 +4,7 @@
 #error HyperDiscord is only supporting Windows in the moment
 #endif
 
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -24,6 +25,8 @@ namespace HyperDiscord
 		Snowflake GuildId;
 		ChannelType Type;
 		std::string Name;
+
+		friend std::ostream& operator<<(std::ostream& os, const ChannelMention& channelMention);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#attachment-object-attachment-structure */
@@ -36,6 +39,8 @@ namespace HyperDiscord
 		std::string ProxyUrl;
 		uint32_t Width;
 		uint32_t Heigh;
+
+		friend std::ostream& operator<<(std::ostream& os, const Attachment& attachment);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#embed-object-embed-footer-structure */
@@ -44,6 +49,8 @@ namespace HyperDiscord
 		std::string Text;
 		std::string IconUrl;
 		std::string ProxyIconUrl;
+
+		friend std::ostream& operator<<(std::ostream& os, const EmbedFooter& embedFooter);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#embed-object-embed-image-structure */
@@ -53,6 +60,8 @@ namespace HyperDiscord
 		std::string ProxyUrl;
 		uint32_t Width;
 		uint32_t Height;
+
+		friend std::ostream& operator<<(std::ostream& os, const EmbedImage& embedImage);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#embed-object-embed-thumbnail-structure */
@@ -62,6 +71,8 @@ namespace HyperDiscord
 		std::string ProxyUrl;
 		uint32_t Width;
 		uint32_t Height;
+
+		friend std::ostream& operator<<(std::ostream& os, const EmbedThumbnail& embedThumbnail);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#embed-object-embed-video-structure */
@@ -70,6 +81,8 @@ namespace HyperDiscord
 		std::string Url;
 		uint32_t Width;
 		uint32_t Height;
+
+		friend std::ostream& operator<<(std::ostream& os, const EmbedVideo& embedVideo);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#embed-object-embed-provider-structure */
@@ -77,6 +90,8 @@ namespace HyperDiscord
 	{
 		std::string Name;
 		std::string Url;
+
+		friend std::ostream& operator<<(std::ostream& os, const EmbedProvider& embedProvider);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#embed-object-embed-author-structure */
@@ -86,6 +101,8 @@ namespace HyperDiscord
 		std::string Url;
 		std::string IconUrl;
 		std::string ProxyIconUrl;
+
+		friend std::ostream& operator<<(std::ostream& os, const EmbedAuthor& embedAuthor);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#embed-object-embed-field-structure */
@@ -94,6 +111,8 @@ namespace HyperDiscord
 		std::string Name;
 		std::string Value;
 		bool Inline;
+
+		friend std::ostream& operator<<(std::ostream& os, const EmbedField& embedField);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#embed-object-embed-structure */
@@ -112,6 +131,8 @@ namespace HyperDiscord
 		EmbedProvider Provider;
 		EmbedAuthor Author;
 		std::vector<EmbedField> Fields;
+
+		friend std::ostream& operator<<(std::ostream& os, const Embed& embed);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#reaction-object */
@@ -120,14 +141,16 @@ namespace HyperDiscord
 		uint32_t Count;
 		bool Me;
 		Emoji emoji;
+
+		friend std::ostream& operator<<(std::ostream& os, const Reaction& reaction);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#message-object-message-types */
 	enum class MessageType
 	{
 		DEFAULT = 0,
-		RECIPENT_ADD,
-		RECIPENT_REMOVE,
+		RECIPIENT_ADD,
+		RECIPIENT_REMOVE,
 		CALL,
 		CHANNEL_NAME_CHANGE,
 		CHANNEL_ICON_CHANGE,
@@ -157,6 +180,8 @@ namespace HyperDiscord
 	{
 		MessageActivityType Type;
 		std::string PartyId;
+
+		friend std::ostream& operator<<(std::ostream& os, const MessageActivity& messageActivity);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#message-object-message-application-structure */
@@ -167,6 +192,8 @@ namespace HyperDiscord
 		std::string Description;
 		std::string Icon;
 		std::string Name;
+
+		friend std::ostream& operator<<(std::ostream& os, const MessageApplication& messageApplication);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#message-object-message-reference-structure */
@@ -175,6 +202,8 @@ namespace HyperDiscord
 		Snowflake MessageId;
 		Snowflake ChannelId;
 		Snowflake GuildId;
+
+		friend std::ostream& operator<<(std::ostream& os, const MessageReference& messageReference);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#message-object-message-sticker-format-types */
@@ -196,6 +225,8 @@ namespace HyperDiscord
 		std::string Asset;
 		std::string PreviewAsset;
 		MessageStickerType FormatType;
+
+		friend std::ostream& operator<<(std::ostream& os, const MessageSticker& messageSticker);
 	};
 
 	/* https://discord.com/developers/docs/resources/channel#message-object */
@@ -227,5 +258,275 @@ namespace HyperDiscord
 		uint32_t Flags;
 		std::vector<MessageSticker> Stickers;
 		Message* ReferencedMessage;
+
+		friend std::ostream& operator<<(std::ostream& os, const Message& message);
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const ChannelMention& channelMention)
+	{
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const Attachment& attachment)
+	{
+		os << "Id: " << attachment.Id
+			<< ", File Name: " << attachment.Filename
+			<< ", Size: " << attachment.Size
+			<< ", Url: " << attachment.Url
+			<< ", Proxy Url: " << attachment.ProxyUrl
+			<< ", Width: " << attachment.Width
+			<< ", Height: " << attachment.Heigh;
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const EmbedFooter& embedFooter)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const EmbedImage& embedImage)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const EmbedThumbnail& embedThumbnail)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const EmbedVideo& embedVideo)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const EmbedProvider& embedProvider)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const EmbedAuthor& embedAuthor)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const EmbedField& embedField)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const Embed& embed)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const Reaction& reaction)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const MessageType& messageType)
+	{
+		switch (messageType)
+		{
+		case MessageType::DEFAULT:
+			os << "Default";
+			break;
+		case MessageType::RECIPIENT_ADD:
+			os << "Recipient Add";
+			break;
+		case MessageType::RECIPIENT_REMOVE:
+			os << "Recipient Remove";
+			break;
+		case MessageType::CALL:
+			os << "Call";
+			break;
+		case MessageType::CHANNEL_NAME_CHANGE:
+			os << "Channel Name Change";
+			break;
+		case MessageType::CHANNEL_ICON_CHANGE:
+			os << "Channel Icon Change";
+			break;
+		case MessageType::CHANNEL_PINNED_MESSAGE:
+			os << "Channel Pinned Message";
+			break;
+		case MessageType::GUILD_MEMBER_JOIN:
+			os << "Guild Direct Message";
+			break;
+		case MessageType::USER_PREMIUM_GUILD_SUBSCRIPTION:
+			os << "User Premium Guild Subscription";
+			break;
+		case MessageType::USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1:
+			os << "User Premium Guild Subscription Tier 1";
+			break;
+		case MessageType::USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2:
+			os << "User Premium Guild Subscription Tier 2";
+			break;
+		case MessageType::USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3:
+			os << "User Premium Guild Subscription Tier 3";
+			break;
+		case MessageType::CHANNEL_FOLLOW_ADD:
+			os << "Channel Follow Add";
+			break;
+		case MessageType::GUILD_DISCOVERY_DISQUALIFIED:
+			os << "Guild Discovery Disqualified";
+			break;
+		case MessageType::GUILD_DISCOVERY_REQUALIFIED:
+			os << "Group Discovery Requalified";
+			break;
+		case MessageType::REPLY:
+			os << "Reply";
+			break;
+		}
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const MessageActivityType& messageActivityType)
+	{
+		switch (messageActivityType)
+		{
+		case MessageActivityType::JOIN:
+			os << "Join";
+			break;
+		case MessageActivityType::SPECTATE:
+			os << "Spectate";
+			break;
+		case MessageActivityType::LISTEN:
+			os << "Listen";
+			break;
+		case MessageActivityType::JOIN_REQUEST:
+			os << "Join request";
+			break;
+		}
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const MessageActivity& messageActivity)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const MessageApplication& messageApplication)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const MessageReference& messageReference)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const MessageStickerType& messageStickerType)
+	{
+		switch (messageStickerType)
+		{
+		case MessageStickerType::PNG:
+			os << "PNG";
+			break;
+		case MessageStickerType::APNG:
+			os << "APNG";
+			break;
+		case MessageStickerType::LOTTIE:
+			os << "Lottie";
+			break;
+		}
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const MessageSticker& messageSticker)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const Message& message)
+	{
+		/*
+		os << "Id: " << channelMention.Id
+			<< ", Guild Id: " << channelMention.GuildId
+			<< ", Type: " << channelMention.Type
+			<< ", Name: " << channelMention.Name;
+			*/
+		return os;
+	}
 }

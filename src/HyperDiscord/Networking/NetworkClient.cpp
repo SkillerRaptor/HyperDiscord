@@ -5,10 +5,13 @@
 #include <iostream>
 #include <ctime>
 
+#include "Events/MessageEvents.h"
+#include "Objects/Snowflake.h"
+
 namespace HyperDiscord
 {
-	NetworkClient::NetworkClient(Token token)
-		: m_Token(token)
+	NetworkClient::NetworkClient(Token token, std::vector<std::function<void(Event&)>>& eventFunctions)
+		: m_Token(token), m_EventFunctions(eventFunctions)
 	{
 		m_HTTPClient = new HTTPClient(m_Token);
 		m_WebSocketClient = new WebSocketClient();
@@ -38,7 +41,41 @@ namespace HyperDiscord
 				nlohmann::json jsonMessage = nlohmann::json::parse(message);
 				if (jsonMessage["s"].is_null() && jsonMessage["s"].is_number())
 					m_LastSequenceNumber = jsonMessage["s"];
+
+				/* Handle Events */
+				/* TODO: GUILD_CREATE */
 				std::cout << jsonMessage.dump(4) << std::endl;
+				if (!jsonMessage["t"].is_null() && jsonMessage["t"].is_string())
+				{
+					std::string eventName = jsonMessage["t"];
+					std::cout << eventName << std::endl;
+					nlohmann::json dataArray = jsonMessage["d"];
+					if (eventName == "MESSAGE_CREATE")
+					{
+						Message message{};
+						message.Id = Snowflake(std::stoll((std::string)dataArray["id"]));
+						message.ChannelId = Snowflake(std::stoll((std::string)dataArray["channel_id"]));
+						message.Content = (std::string)dataArray["content"];
+
+						MessageCreateEvent event(message);
+
+						for (auto& function : m_EventFunctions)
+							function(event);
+					}
+					else if (eventName == "MESSAGE_DELETE")
+					{
+						Snowflake channelId = Snowflake(std::stoll((std::string)dataArray["channel_id"]));
+						Snowflake id = Snowflake(std::stoll((std::string)dataArray["id"]));
+
+						Snowflake guildId;
+						if(!dataArray["guild_id"].is_null()) guildId = Snowflake(std::stoll((std::string)dataArray["guild_id"]));
+
+						MessageDeleteEvent event(channelId, guildId, id);
+
+						for (auto& function : m_EventFunctions)
+							function(event);
+					}
+				}
 			}
 		}
 	}
