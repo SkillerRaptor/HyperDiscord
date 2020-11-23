@@ -81,15 +81,14 @@ namespace HyperDiscord
 
 	void NetworkClient::HeartBeating()
 	{
-		unsigned int currentTime = clock();
+		clock_t currentTime = clock();
 		while (m_Running)
 		{
-			time_t check = (clock() - currentTime) / CLOCKS_PER_SEC * 1000UL;
+			time_t check = (clock() - currentTime) / CLOCKS_PER_SEC * (clock_t) 1000UL;
 
 			while (check >= m_HeartBeat)
 			{
 				m_WebSocketClient->SendData("{\"op\":1,\"d\":" + std::to_string(m_LastSequenceNumber) + "}");
-				std::cout << "[HyperDiscord] HeartBeating" << std::endl;
 
 				currentTime = clock();
 				check = 0;
