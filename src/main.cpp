@@ -1,17 +1,14 @@
 ﻿#include "HyperDiscord/HyperDiscord.h"
 
-#include "Networking/WebSocketClient.h"
 #include "Events/MessageEvents.h"
 
 using namespace HyperDiscord;
-
-#include <thread>
 
 int main(int argc, char** argv)
 {
 	HyperClient* hyperClient = new HyperClient("Your Token here!", TokenType::BOT);
 
-	/* NOTE: Pseudo Code */
+	/* NOTE: Pseudo Implementation Code */
 
 	hyperClient->OnEvent([&](Event& event)
 		{

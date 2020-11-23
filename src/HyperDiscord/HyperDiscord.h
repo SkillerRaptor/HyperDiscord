@@ -8,9 +8,14 @@
 #include "Core/HyperClient.h"
 #include "Core/Token.h"
 
+/* Events */
+#include "Events/Event.h"
+#include "Events/MessageEvents.h"
+
 /* Networking */
 #include "Networking/HTTPClient.h"
 #include "Networking/NetworkClient.h"
+#include "Networking/WebsocketClient.h"
 #include "Networking/Gateway/Activity.h"
 #include "Networking/Gateway/ActivityAssets.h"
 #include "Networking/Gateway/ActivityEmoji.h"
