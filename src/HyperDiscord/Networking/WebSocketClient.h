@@ -25,7 +25,8 @@ namespace HyperDiscord
 		WebSocketClient();
 		~WebSocketClient();
 
-		const std::string SendMessage(const std::string& path, const std::string& message);
+		const std::string Listen();
+		const std::string SendMessage(const std::string& message);
 
 	private:
 		void Init();
