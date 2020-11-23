@@ -1,12 +1,9 @@
 #include "NetworkClient.h"
 
-#include <json.hpp>
-
 #include <iostream>
 #include <ctime>
 
 #include "Events/MessageEvents.h"
-#include "Objects/Snowflake.h"
 
 namespace HyperDiscord
 {
@@ -47,27 +44,57 @@ namespace HyperDiscord
 				if (!jsonMessage["t"].is_null() && jsonMessage["t"].is_string())
 				{
 					std::string eventName = jsonMessage["t"];
-					std::cout << eventName << std::endl;
 					nlohmann::json dataArray = jsonMessage["d"];
-					if (eventName == "MESSAGE_CREATE")
+					if (eventName == "MESSAGE_CREATE" || eventName == "MESSAGE_UPDATE")
 					{
 						Message message{};
-						message.Id = Snowflake(std::stoll((std::string)dataArray["id"]));
-						message.ChannelId = Snowflake(std::stoll((std::string)dataArray["channel_id"]));
-						message.Content = (std::string)dataArray["content"];
+						message.Id = GetSnowflake(dataArray, "id");
+						message.ChannelId = GetSnowflake(dataArray, "channel_id");
+						message.GuildId = GetSnowflake(dataArray, "guild_id");
+						message.Author = GetUser(dataArray, "author");
+						message.Member = GetGuildMember(dataArray, "member");
+						message.Content = GetString(dataArray, "content");
+						// TODO: Timestamp
+						// TODO: Edited Timestamp
+						message.TTS = GetBoolean(dataArray, "tts");
+						message.MentionEveryone = GetBoolean(dataArray, "mention_everyone");
+						// TODO: Mentions Array
+						// TODO: Mention Roles Array
+						// TODO: Mention Channels Array
+						// TODO: Attachments Array
+						// TODO: Embeds Array
+						// TODO: Reaction Array
+						// NOTE: Nonce
+						message.Pinned = GetBoolean(dataArray, "pinned");
+						message.WebhookId = GetSnowflake(dataArray, "webhook_id");
+						// TODO: Type
+						// TODO: Activity Object
+						// TODO: Application Object
+						// TODO: Reference Object
+						// TODO: Flags
+						// TODO: Sticker Array
+						// TODO: Referenced Message
 
-						MessageCreateEvent event(message);
+						if (eventName == "MESSAGE_CREATE")
+						{
+							MessageCreateEvent event(message);
 
-						for (auto& function : m_EventFunctions)
-							function(event);
+							for (auto& function : m_EventFunctions)
+								function(event);
+						}
+						else if (eventName == "MESSAGE_UPDATE")
+						{
+							MessageUpdateEvent event(message);
+
+							for (auto& function : m_EventFunctions)
+								function(event);
+						}
 					}
 					else if (eventName == "MESSAGE_DELETE")
 					{
-						Snowflake channelId = Snowflake(std::stoll((std::string)dataArray["channel_id"]));
-						Snowflake id = Snowflake(std::stoll((std::string)dataArray["id"]));
-
-						Snowflake guildId;
-						if(!dataArray["guild_id"].is_null()) guildId = Snowflake(std::stoll((std::string)dataArray["guild_id"]));
+						Snowflake channelId = GetSnowflake(dataArray, "channel_id");
+						Snowflake guildId = GetSnowflake(dataArray, "guild_id");
+						Snowflake id = GetSnowflake(dataArray, "id");
 
 						MessageDeleteEvent event(channelId, guildId, id);
 
@@ -84,7 +111,7 @@ namespace HyperDiscord
 		clock_t currentTime = clock();
 		while (m_Running)
 		{
-			time_t check = (clock() - currentTime) / CLOCKS_PER_SEC * (clock_t) 1000UL;
+			time_t check = (clock() - currentTime) / CLOCKS_PER_SEC * (clock_t)1000UL;
 
 			while (check >= m_HeartBeat)
 			{
@@ -94,6 +121,88 @@ namespace HyperDiscord
 				check = 0;
 			}
 		}
+	}
+
+	bool NetworkClient::GetBoolean(const nlohmann::json& dataArray, const std::string& key)
+	{
+		if (!dataArray.contains(key))
+			return false;
+
+		if (!dataArray[key].is_boolean() && dataArray[key].is_null())
+			return false;
+
+		return static_cast<bool>(dataArray[key]);
+	}
+
+	std::string NetworkClient::GetString(const nlohmann::json& dataArray, const std::string& key)
+	{
+		if (!dataArray.contains(key))
+			return "";
+
+		if (!dataArray[key].is_string() && dataArray[key].is_null())
+			return "";
+
+		return static_cast<std::string>(dataArray[key]);
+	}
+
+	Snowflake NetworkClient::GetSnowflake(const nlohmann::json& dataArray, const std::string& key)
+	{
+		if (!dataArray.contains(key))
+			return Snowflake({});
+
+		if (!dataArray[key].is_string() && dataArray[key].is_null())
+			return Snowflake({});
+
+		return Snowflake(std::stoll((std::string)dataArray[key]));
+	}
+
+	User NetworkClient::GetUser(const nlohmann::json& dataArray, const std::string& key)
+	{
+		if (!dataArray.contains(key))
+			return User({});
+
+		if (dataArray[key].is_null())
+			return User({});
+
+		nlohmann::json array = dataArray[key];
+
+		User user{};
+		user.Id = GetSnowflake(array, "id");
+		user.Username = GetString(array, "username");
+		user.Discriminator = GetString(array, "discriminator");
+		user.Avatar = GetString(array, "avatar");
+		user.Bot = GetBoolean(array, "bot");
+		user.System = GetBoolean(array, "system");
+		user.MfaEnabled = GetBoolean(array, "mfa_enabled");
+		user.Locale = GetString(array, "locale");
+		user.Verified = GetBoolean(array, "verified");
+		user.Email = GetString(array, "email");
+		// TODO: Flags
+		// TODO: Premium Type
+		// TODO: Public Flags
+
+		return user;
+	}
+
+	GuildMember NetworkClient::GetGuildMember(const nlohmann::json& dataArray, const std::string& key)
+	{
+		if (!dataArray.contains(key))
+			return GuildMember({});
+		if (dataArray[key].is_null())
+			return GuildMember({});
+
+		nlohmann::json array = dataArray[key];
+
+		GuildMember guildMember{};
+		guildMember.User = GetUser(array, "user");
+		guildMember.Nick = GetString(array, "nick");
+		// TODO: Roles - Snowflake Array
+		// TODO: Joined At
+		// TODO: Premium Since
+		guildMember.Deaf = GetBoolean(array, "deaf");
+		guildMember.Mute = GetBoolean(array, "mute");
+
+		return guildMember;
 	}
 
 	const std::string NetworkClient::Get(const std::string& path)

@@ -4,6 +4,8 @@
 #error HyperDiscord is only supporting Windows in the moment
 #endif
 
+#include <json.hpp>
+
 #include <functional>
 #include <sstream>
 #include <thread>
@@ -13,6 +15,9 @@
 #include "WebSocketClient.h"
 #include "Core/Token.h"
 #include "Events/Event.h"
+#include "Objects/Snowflake.h"
+#include "Objects/User.h"
+#include "Objects/GuildMember.h"
 
 namespace HyperDiscord
 {
@@ -60,5 +65,11 @@ namespace HyperDiscord
 	private:
 		void Listening();
 		void HeartBeating();
+
+		bool GetBoolean(const nlohmann::json& dataArray, const std::string& key);
+		std::string GetString(const nlohmann::json& dataArray, const std::string& key);
+		Snowflake GetSnowflake(const nlohmann::json& dataArray, const std::string& key);
+		User GetUser(const nlohmann::json& dataArray, const std::string& key);
+		GuildMember GetGuildMember(const nlohmann::json& dataArray, const std::string& key);
 	};
 }
