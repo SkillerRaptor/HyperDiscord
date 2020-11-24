@@ -16,11 +16,37 @@
 #include "Managers/EmojiManager.h"
 #include "Managers/GuildManager.h"
 #include "Networking/NetworkClient.h"
+#include "Networking/Gateway/Activity.h"
 #include "Objects/Snowflake.h"
 #include "Utilities/Timestamp.h"
 
 namespace HyperDiscord
 {
+	enum class ActivityStatusType
+	{
+		PLAYING = 1,
+		LISTENING,
+		WATCHING
+	};
+
+	enum class StatusType
+	{
+		ONLINE = 0,
+		DND,
+		IDLE,
+		INVISIBLE,
+		OFFLINE
+	};
+	
+	struct StatusInfo
+	{
+		uint32_t Since;
+		std::string Name;
+		ActivityStatusType Type;
+		StatusType Status;
+		bool Afk;
+	};
+
 	class HyperClient
 	{
 	private:
@@ -45,6 +71,8 @@ namespace HyperDiscord
 		const ChannelManager& GetChannelManager() const;
 		const EmojiManager& GetEmojiManager() const;
 		const GuildManager& GetGuildManager() const;
+
+		void SetStatus(StatusInfo statusInfo);
 
 		const Token& GetToken() const;
 		Timestamp GetUptime() const;

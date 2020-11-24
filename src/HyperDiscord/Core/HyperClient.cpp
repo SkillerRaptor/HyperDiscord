@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "Events/GeneralEvents.h"
 #include "Events/GuildEvents.h"
 #include "Events/MessageEvents.h"
 
@@ -24,18 +25,6 @@ namespace HyperDiscord
 
 						for (Channel channel : guildCreateEvent.GetGuild().Channels)
 							m_ChannelManger->m_Channels.push_back(channel);
-					});
-
-				dispatcher.Dispatch<MessageCreateEvent>([&](MessageCreateEvent& messageCreateEvent)
-					{
-					});
-
-				dispatcher.Dispatch<MessageUpdateEvent>([&](MessageUpdateEvent& messageUpdateEvent)
-					{
-					});
-
-				dispatcher.Dispatch<MessageDeleteEvent>([&](MessageDeleteEvent& messageDeleteEvent)
-					{
 					});
 			});
 	}
@@ -68,6 +57,31 @@ namespace HyperDiscord
 	const GuildManager& HyperClient::GetGuildManager() const
 	{
 		return *m_GuildManager;
+	}
+
+	void HyperClient::SetStatus(StatusInfo statusInfo)
+	{
+		std::string statusName;
+		switch (statusInfo.Status)
+		{
+		case StatusType::ONLINE:
+			statusName = "online";
+			break;
+		case StatusType::DND:
+			statusName = "dnd";
+			break;
+		case StatusType::IDLE:
+			statusName = "idle";
+			break;
+		case StatusType::INVISIBLE:
+			statusName = "invisible";
+			break;
+		case StatusType::OFFLINE:
+			statusName = "offline";
+			break;
+		}
+
+		m_NetworkClient->SendData("{\"op\":3,\"d\":{\"since\":" + std::to_string(statusInfo.Since) + ",\"activities\":[{\"name\":\"" + statusInfo.Name + "\",\"type\":" + std::to_string(static_cast<int>(statusInfo.Type)) + "}],\"status\":\"" + statusName + "\",\"afk\":" + (statusInfo.Afk ? "true" : "false") + "}}");
 	}
 
 	const Token& HyperClient::GetToken() const

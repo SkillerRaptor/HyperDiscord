@@ -3,6 +3,7 @@
 #include <iostream>
 #include <ctime>
 
+#include "Events/GeneralEvents.h"
 #include "Events/GuildEvents.h"
 #include "Events/MessageEvents.h"
 
@@ -15,12 +16,13 @@ namespace HyperDiscord
 		m_EventTypes["MESSAGE_CREATE"] = EventType::MessageCreate;
 		m_EventTypes["MESSAGE_UPDATE"] = EventType::MessageUpdate;
 		m_EventTypes["MESSAGE_DELETE"] = EventType::MessageDelete;
+		m_EventTypes["READY"] = EventType::Ready;
 
 		m_HTTPClient = new HTTPClient(m_Token);
 		m_WebSocketClient = new WebSocketClient();
 
 		m_HeartBeat = nlohmann::json::parse(m_WebSocketClient->Listen())["d"]["heartbeat_interval"];
-		nlohmann::json ready = nlohmann::json::parse(m_WebSocketClient->SendData("{\"op\":2,\"d\":{\"token\":\"" + token.GetToken() + "\",\"intents\":513,\"properties\":{\"$os\":\"windows\",\"$browser\":\"HyperDiscord\",\"$device\":\"HyperDiscord\"},\"presence\":{\"activities\":[{\"name\":\"some Hentais\",\"type\":3}],\"status\":\"dnd\",\"since\":91879201,\"afk\":false},\"intents\":7}}"));
+		nlohmann::json ready = nlohmann::json::parse(m_WebSocketClient->SendData("{\"op\":2,\"d\":{\"token\":\"" + token.GetToken() + "\",\"intents\":513,\"properties\":{\"$os\":\"windows\",\"$browser\":\"HyperDiscord\",\"$device\":\"HyperDiscord\"}}}"));
 
 		m_HeartBeatingThread = std::thread(&NetworkClient::HeartBeating, this);
 		m_ListeningThread = std::thread(&NetworkClient::Listening, this);
@@ -102,6 +104,18 @@ namespace HyperDiscord
 			Snowflake guildId = GetSnowflakeObject(data, "guild_id");
 			Snowflake id = GetSnowflakeObject(data, "id");
 			m_EventBus.push(std::make_shared<MessageDeleteEvent>(channelId, guildId, id));
+			break;
+		}
+		case EventType::Ready:
+		{
+			uint8_t version = GetIntegerObject(data, "v");
+			User user = GetUserObject(data, "user");
+			std::vector<Guild> guilds;
+			nlohmann::json guildArray = GetArrayObject(data, "guilds");
+			for (nlohmann::json guildObject : guildArray)
+				guilds.push_back(GetGuildObject(guildObject, ""));
+			std::string sessionId = GetStringObject(data, "session_id");
+			m_EventBus.push(std::make_shared<ReadyEvent>(version, user, guilds, sessionId));
 			break;
 		}
 		}

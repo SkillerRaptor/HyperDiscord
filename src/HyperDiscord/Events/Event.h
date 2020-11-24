@@ -11,6 +11,7 @@ namespace HyperDiscord
 	enum class EventType : uint8_t
 	{
 		None = 0,
+		Ready,
 		GuildCreate,
 		MessageCreate, MessageUpdate, MessageDelete
 	};
@@ -18,8 +19,8 @@ namespace HyperDiscord
 	enum EventCategory : uint8_t
 	{
 		NoneCategory = 0,
-		GeneralCategory,
 		ChannelCategory,
+		GeneralCategory,
 		GuildCategory,
 		InviteCategory,
 		MessageCategory
