@@ -11,6 +11,7 @@ namespace HyperDiscord
 	enum class EventType : uint8_t
 	{
 		None = 0,
+		GuildCreate,
 		MessageCreate, MessageUpdate, MessageDelete
 	};
 

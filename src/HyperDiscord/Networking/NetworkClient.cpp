@@ -3,13 +3,15 @@
 #include <iostream>
 #include <ctime>
 
+#include "Events/GuildEvents.h"
 #include "Events/MessageEvents.h"
 
 namespace HyperDiscord
 {
-	NetworkClient::NetworkClient(Token token, std::vector<std::function<void(Event&)>>& eventFunctions)
-		: m_Token(token), m_EventFunctions(eventFunctions)
+	NetworkClient::NetworkClient(Token token, std::queue<std::shared_ptr<Event>>& eventBus)
+		: m_Token(token), m_EventBus(eventBus)
 	{
+		m_EventTypes["GUILD_CREATE"] = EventType::GuildCreate;
 		m_EventTypes["MESSAGE_CREATE"] = EventType::MessageCreate;
 		m_EventTypes["MESSAGE_UPDATE"] = EventType::MessageUpdate;
 		m_EventTypes["MESSAGE_DELETE"] = EventType::MessageDelete;
@@ -74,20 +76,24 @@ namespace HyperDiscord
 
 	void NetworkClient::OnEvent(EventType eventType, const nlohmann::json& data)
 	{
-		Event* event;
-
 		switch (eventType)
 		{
+		case EventType::GuildCreate:
+		{
+			Guild guild = GetGuildObject(data, "");
+			m_EventBus.push(std::make_shared<GuildCreateEvent>(guild));
+			break;
+		}
 		case EventType::MessageCreate:
 		{
 			Message message = GetMessageObject(data, "");
-			event = new MessageCreateEvent(message);
+			m_EventBus.push(std::make_shared<MessageCreateEvent>(message));
 			break;
 		}
 		case EventType::MessageUpdate:
 		{
 			Message message = GetMessageObject(data, "");
-			event = new MessageUpdateEvent(message);
+			m_EventBus.push(std::make_shared<MessageUpdateEvent>(message));
 			break;
 		}
 		case EventType::MessageDelete:
@@ -95,15 +101,10 @@ namespace HyperDiscord
 			Snowflake channelId = GetSnowflakeObject(data, "channel_id");
 			Snowflake guildId = GetSnowflakeObject(data, "guild_id");
 			Snowflake id = GetSnowflakeObject(data, "id");
-			event = new MessageDeleteEvent(channelId, guildId, id);
+			m_EventBus.push(std::make_shared<MessageDeleteEvent>(channelId, guildId, id));
 			break;
 		}
 		}
-
-		for (auto& function : m_EventFunctions)
-			function(*event);
-
-		delete event;
 	}
 
 	bool NetworkClient::GetBooleanObject(const nlohmann::json& dataArray, const std::string& key)
@@ -128,6 +129,18 @@ namespace HyperDiscord
 		return static_cast<std::string>(dataArray[key]);
 	}
 
+
+	nlohmann::json NetworkClient::GetArrayObject(const nlohmann::json& dataArray, const std::string& key)
+	{
+		if (!dataArray.contains(key))
+			return nlohmann::json();
+
+		if (dataArray[key].is_null())
+			return nlohmann::json();
+
+		return static_cast<nlohmann::json>(dataArray[key]);
+	}
+
 	Snowflake NetworkClient::GetSnowflakeObject(const nlohmann::json& dataArray, const std::string& key)
 	{
 		if (!dataArray.contains(key))
@@ -148,6 +161,26 @@ namespace HyperDiscord
 			return Iso8601({});
 
 		return Iso8601(GetStringObject(dataArray, key));
+	}
+
+
+	Guild NetworkClient::GetGuildObject(const nlohmann::json& dataArray, const std::string& key)
+	{
+		nlohmann::json data = dataArray;
+		if (!key.empty() || key != "")
+		{
+			if (!dataArray.contains(key))
+				return Guild({});
+			if (dataArray[key].is_null())
+				return Guild({});
+
+			data = dataArray[key];
+		}
+
+		Guild guild{};
+		guild.Id = GetSnowflakeObject(data, "id");
+
+		return guild;
 	}
 
 	User NetworkClient::GetUserObject(const nlohmann::json& dataArray, const std::string& key)

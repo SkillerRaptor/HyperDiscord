@@ -1,5 +1,6 @@
 ﻿#include "HyperDiscord/HyperDiscord.h"
 
+#include "Events/GuildEvents.h"
 #include "Events/MessageEvents.h"
 
 using namespace HyperDiscord;
@@ -13,6 +14,11 @@ int main(int argc, char** argv)
 	hyperClient->OnEvent([&](Event& event)
 		{
 			EventDispatcher dispatcher(event);
+			dispatcher.Dispatch<GuildCreateEvent>([&](GuildCreateEvent& guildCreateEvent)
+				{
+					std::cout << "Guild Create" << std::endl;
+				});
+
 			dispatcher.Dispatch<MessageCreateEvent>([&](MessageCreateEvent& messageCreateEvent)
 				{
 					std::cout << "Message Create" << std::endl;
