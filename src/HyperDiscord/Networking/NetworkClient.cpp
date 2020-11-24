@@ -118,6 +118,18 @@ namespace HyperDiscord
 		return static_cast<bool>(dataArray[key]);
 	}
 
+
+	int NetworkClient::GetIntegerObject(const nlohmann::json& dataArray, const std::string& key)
+	{
+		if (!dataArray.contains(key))
+			return -1;
+
+		if (!dataArray[key].is_string() && dataArray[key].is_null())
+			return -1;
+
+		return static_cast<int>(dataArray[key]);
+	}
+
 	std::string NetworkClient::GetStringObject(const nlohmann::json& dataArray, const std::string& key)
 	{
 		if (!dataArray.contains(key))
@@ -164,6 +176,42 @@ namespace HyperDiscord
 	}
 
 
+	Channel NetworkClient::GetChannelObject(const nlohmann::json& dataArray, const std::string& key)
+	{
+		nlohmann::json data = dataArray;
+		if (!key.empty() || key != "")
+		{
+			if (!dataArray.contains(key))
+				return Channel({});
+			if (dataArray[key].is_null())
+				return Channel({});
+
+			data = dataArray[key];
+		}
+
+		Channel channel{};
+		channel.Id = GetSnowflakeObject(data, "id");
+		channel.Type = static_cast<ChannelType>(GetIntegerObject(data, "type"));
+		channel.GuildId = GetSnowflakeObject(data, "guild_id");
+		channel.Position = GetIntegerObject(data, "position");
+		// TODO: Permission Overwrites
+		channel.Name = GetStringObject(data, "name");
+		channel.Topic = GetStringObject(data, "topic");
+		channel.Nsfw = GetBooleanObject(data, "nsfw");
+		channel.LastMessageId = GetSnowflakeObject(data, "last_message_id");
+		channel.Bitrate = GetIntegerObject(data, "bitrate");
+		channel.UserLimit = GetIntegerObject(data, "user_limit");
+		channel.RateLimitPerUser = GetIntegerObject(data, "rate_limit_per_user");
+		// TODO: Recipients
+		channel.Icon = GetStringObject(data, "icon");
+		channel.OwnerId = GetSnowflakeObject(data, "owner_id");
+		channel.ApplicationId = GetSnowflakeObject(data, "application_id");
+		channel.ParentId = GetSnowflakeObject(data, "parent_id");
+		channel.LastPinTimestamp = GetIso8061Object(data, "last_pin_timestamp");
+
+		return channel;
+	}
+
 	Guild NetworkClient::GetGuildObject(const nlohmann::json& dataArray, const std::string& key)
 	{
 		nlohmann::json data = dataArray;
@@ -177,8 +225,12 @@ namespace HyperDiscord
 			data = dataArray[key];
 		}
 
+
 		Guild guild{};
 		guild.Id = GetSnowflakeObject(data, "id");
+
+		for (auto& channel : GetArrayObject(data, "channels"))
+			guild.Channels.push_back(GetChannelObject(channel, ""));
 		// TODO: Doing rest...
 
 		return guild;
