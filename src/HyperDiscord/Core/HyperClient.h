@@ -5,7 +5,9 @@
 #endif
 
 #include <functional>
+#include <memory>
 #include <string>
+#include <queue>
 #include <vector>
 
 #include "Token.h"
@@ -30,6 +32,7 @@ namespace HyperDiscord
 		EmojiManager m_EmojiManger;
 		GuildManager m_GuildManager;
 
+		std::queue<std::shared_ptr<Event>> m_EventBus;
 		std::vector<std::function<void(Event&)>> m_EventFunctions;
 
 	public:
