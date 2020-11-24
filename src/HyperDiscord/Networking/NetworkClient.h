@@ -15,9 +15,11 @@
 #include "WebSocketClient.h"
 #include "Core/Token.h"
 #include "Events/Event.h"
+#include "Objects/Message.h"
 #include "Objects/Snowflake.h"
 #include "Objects/User.h"
 #include "Objects/GuildMember.h"
+#include "Utilities/Iso8601.h"
 
 namespace HyperDiscord
 {
@@ -31,6 +33,7 @@ namespace HyperDiscord
 		uint32_t m_HeartBeat = 0;
 		uint32_t m_LastSequenceNumber = 0;
 
+		std::unordered_map<std::string, EventType> m_EventTypes;
 		std::vector<std::function<void(Event&)>>& m_EventFunctions;
 
 		HTTPClient* m_HTTPClient;
@@ -66,10 +69,14 @@ namespace HyperDiscord
 		void Listening();
 		void HeartBeating();
 
-		bool GetBoolean(const nlohmann::json& dataArray, const std::string& key);
-		std::string GetString(const nlohmann::json& dataArray, const std::string& key);
-		Snowflake GetSnowflake(const nlohmann::json& dataArray, const std::string& key);
-		User GetUser(const nlohmann::json& dataArray, const std::string& key);
-		GuildMember GetGuildMember(const nlohmann::json& dataArray, const std::string& key);
+		void OnEvent(EventType eventType, const nlohmann::json& data);
+
+		bool GetBooleanObject(const nlohmann::json& dataArray, const std::string& key);
+		std::string GetStringObject(const nlohmann::json& dataArray, const std::string& key);
+		Snowflake GetSnowflakeObject(const nlohmann::json& dataArray, const std::string& key);
+		Iso8601 GetIso8061Object(const nlohmann::json& dataArray, const std::string& key);
+		User GetUserObject(const nlohmann::json& dataArray, const std::string& key);
+		GuildMember GetGuildMemberObject(const nlohmann::json& dataArray, const std::string& key);
+		Message GetMessageObject(const nlohmann::json& dataArray, const std::string& key);
 	};
 }

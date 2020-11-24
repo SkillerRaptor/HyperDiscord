@@ -1,5 +1,6 @@
 #include "HTTPClient.h"
 
+#include <algorithm>
 #include <iostream>
 
 namespace HyperDiscord
@@ -24,7 +25,8 @@ namespace HyperDiscord
 			exit(-1);
 		}
 
-		m_Connection = WinHttpConnect(m_Session, L"www.discord.com", INTERNET_DEFAULT_HTTPS_PORT, 0);
+		//m_Connection = WinHttpConnect(m_Session, L"www.postman-echo.com", INTERNET_DEFAULT_HTTPS_PORT, 0);
+		m_Connection = WinHttpConnect(m_Session, L"discord.com", INTERNET_DEFAULT_HTTPS_PORT, 0);
 		if (!m_Connection)
 		{
 			std::cerr << "[HyperDiscord] Error " << GetLastError() << " in WinHttpConnect." << std::endl;
@@ -159,11 +161,19 @@ namespace HyperDiscord
 			exit(-1);
 		}
 
+		std::cout << requestString << std::endl;
+
 		std::wstring additionalHeaders = GenerateHeaders(headers);
-		if (!WinHttpSendRequest(request, additionalHeaders.c_str(), -1L, (body == "") ? WINHTTP_NO_REQUEST_DATA : (LPVOID) body.c_str(), (body == "") ? 0 : ConvertFromString(body).length(), (body == "") ? 0 : ConvertFromString(body).length(), 0))
+		if (!WinHttpSendRequest(request, additionalHeaders.c_str(), -1L, WINHTTP_NO_REQUEST_DATA, 0, (body == "") ? 0 : body.length(), 0))
 		{
 			std::cerr << "[HyperDiscord] Error " << GetLastError() << " in WinHttpSendRequest." << std::endl;
 			exit(-1);
+		}
+
+		if (requestString == "POST")
+		{
+			DWORD dwBytesWritten = 0;
+			WinHttpWriteData(request, (LPVOID)body.data(), strlen(body.c_str()), &dwBytesWritten);
 		}
 
 		if (!WinHttpReceiveResponse(request, nullptr))
@@ -217,7 +227,8 @@ namespace HyperDiscord
 
 	const std::string HTTPClient::GetResponseHeader(HINTERNET request)
 	{
-		LPVOID headerData = GetRequestHeaders(request); // TODO: Adding HTTPResponse back with Heada data
+		LPVOID headerData = GetRequestHeaders(request); // TODO: Adding HTTPResponse back with Header data
+		printf("%S", headerData);
 		const std::string responseBody = GetResponse(request);
 		delete[] headerData;
 

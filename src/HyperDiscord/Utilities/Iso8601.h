@@ -17,10 +17,18 @@ namespace HyperDiscord
 		uint8_t m_Day;
 		uint8_t m_Hour;
 		uint8_t m_Minute;
-		uint8_t m_Seconds;
-		uint16_t m_Milliseconds;
+		uint8_t m_Second;
+		uint32_t m_Nanosecond;
 
 	public:
 		Iso8601(const std::string& timeStamp = "");
+
+		uint16_t GetYear() const;
+		uint16_t GetMonth() const;
+		uint16_t GetDay() const;
+		uint16_t GetHour() const;
+		uint16_t GetMinute() const;
+		uint16_t GetSecond() const;
+		uint16_t GetNanosecond() const;
 	};
 }
