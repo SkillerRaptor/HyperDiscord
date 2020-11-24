@@ -28,9 +28,9 @@ namespace HyperDiscord
 		NetworkClient* m_NetworkClient;
 		Timestamp m_Uptime;
 
-		ChannelManager m_ChannelManger;
-		EmojiManager m_EmojiManger;
-		GuildManager m_GuildManager;
+		ChannelManager* m_ChannelManger;
+		EmojiManager* m_EmojiManger;
+		GuildManager* m_GuildManager;
 
 		std::queue<std::shared_ptr<Event>> m_EventBus;
 		std::vector<std::function<void(Event&)>> m_EventFunctions;

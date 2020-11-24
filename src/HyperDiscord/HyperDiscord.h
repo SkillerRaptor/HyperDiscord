@@ -8,8 +8,14 @@
 #include "Core/HyperClient.h"
 #include "Core/Token.h"
 
+/* Managers */
+#include "Managers/ChannelManager.h"
+#include "Managers/EmojiManager.h"
+#include "Managers/GuildManager.h"
+
 /* Events */
 #include "Events/Event.h"
+#include "Events/GuildEvents.h"
 #include "Events/MessageEvents.h"
 
 /* Networking */

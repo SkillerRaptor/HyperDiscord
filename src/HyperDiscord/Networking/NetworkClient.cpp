@@ -179,6 +179,7 @@ namespace HyperDiscord
 
 		Guild guild{};
 		guild.Id = GetSnowflakeObject(data, "id");
+		// TODO: Doing rest...
 
 		return guild;
 	}
