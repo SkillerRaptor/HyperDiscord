@@ -4,11 +4,16 @@
 #error HyperDiscord is only supporting Windows in the moment
 #endif
 
-class GuildManager
-{
-private:
+#include "Utilities/NonCopyable.h"
+#include "Utilities/NonMoveable.h"
 
-public:
-	GuildManager();
-	~GuildManager();
-};
+namespace HyperDiscord
+{
+	class GuildManager : public NonCopyable, NonMoveable
+	{
+	private:
+
+	public:
+		GuildManager();
+	};
+}

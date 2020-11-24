@@ -25,7 +25,6 @@ namespace HyperDiscord
 			exit(-1);
 		}
 
-		//m_Connection = WinHttpConnect(m_Session, L"www.postman-echo.com", INTERNET_DEFAULT_HTTPS_PORT, 0);
 		m_Connection = WinHttpConnect(m_Session, L"discord.com", INTERNET_DEFAULT_HTTPS_PORT, 0);
 		if (!m_Connection)
 		{
@@ -228,7 +227,6 @@ namespace HyperDiscord
 	const std::string HTTPClient::GetResponseHeader(HINTERNET request)
 	{
 		LPVOID headerData = GetRequestHeaders(request); // TODO: Adding HTTPResponse back with Header data
-		printf("%S", headerData);
 		const std::string responseBody = GetResponse(request);
 		delete[] headerData;
 

@@ -4,11 +4,16 @@
 #error HyperDiscord is only supporting Windows in the moment
 #endif
 
-class EmojiManager
-{
-private:
+#include "Utilities/NonCopyable.h"
+#include "Utilities/NonMoveable.h"
 
-public:
-	EmojiManager();
-	~EmojiManager();
-};
+namespace HyperDiscord
+{
+	class EmojiManager : public NonCopyable, NonMoveable
+	{
+	private:
+
+	public:
+		EmojiManager();
+	};
+}

@@ -1,11 +1,9 @@
 #include "EmojiManager.h"
 
-EmojiManager::EmojiManager()
+namespace HyperDiscord
 {
+	EmojiManager::EmojiManager()
+	{
 
-}
-
-EmojiManager::~EmojiManager()
-{
-
+	}
 }

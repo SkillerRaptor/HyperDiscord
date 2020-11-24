@@ -4,11 +4,16 @@
 #error HyperDiscord is only supporting Windows in the moment
 #endif
 
-class ChannelManager
-{
-private:
+#include "Utilities/NonCopyable.h"
+#include "Utilities/NonMoveable.h"
 
-public:
-	ChannelManager();
-	~ChannelManager();
-};
+namespace HyperDiscord
+{
+	class ChannelManager : public NonCopyable, NonMoveable
+	{
+	private:
+
+	public:
+		ChannelManager();
+	};
+}

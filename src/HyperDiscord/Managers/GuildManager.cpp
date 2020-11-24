@@ -1,11 +1,9 @@
 #include "GuildManager.h"
 
-GuildManager::GuildManager()
+namespace HyperDiscord
 {
+	GuildManager::GuildManager()
+	{
 
-}
-
-GuildManager::~GuildManager()
-{
-
+	}
 }

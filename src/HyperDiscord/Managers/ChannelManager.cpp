@@ -1,11 +1,9 @@
 #include "ChannelManager.h"
 
-ChannelManager::ChannelManager()
+namespace HyperDiscord
 {
+	ChannelManager::ChannelManager()
+	{
 
-}
-
-ChannelManager::~ChannelManager()
-{
-
+	}
 }
