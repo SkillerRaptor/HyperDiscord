@@ -39,6 +39,11 @@ namespace HyperDiscord
 		return m_Id & 0xFFF;
 	}
 
+	Snowflake::operator std::string() const
+	{
+		return std::to_string(m_Id);
+	}
+
 	Snowflake::operator long long() const
 	{
 		return m_Id;

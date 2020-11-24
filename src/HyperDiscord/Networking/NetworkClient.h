@@ -65,12 +65,6 @@ namespace HyperDiscord
 		const std::string Listen();
 		const std::string SendData(const std::string& message);
 
-	private:
-		void Listening();
-		void HeartBeating();
-
-		void OnEvent(EventType eventType, const nlohmann::json& data);
-
 		bool GetBooleanObject(const nlohmann::json& dataArray, const std::string& key);
 		std::string GetStringObject(const nlohmann::json& dataArray, const std::string& key);
 		Snowflake GetSnowflakeObject(const nlohmann::json& dataArray, const std::string& key);
@@ -78,5 +72,11 @@ namespace HyperDiscord
 		User GetUserObject(const nlohmann::json& dataArray, const std::string& key);
 		GuildMember GetGuildMemberObject(const nlohmann::json& dataArray, const std::string& key);
 		Message GetMessageObject(const nlohmann::json& dataArray, const std::string& key);
+
+	private:
+		void Listening();
+		void HeartBeating();
+
+		void OnEvent(EventType eventType, const nlohmann::json& data);
 	};
 }

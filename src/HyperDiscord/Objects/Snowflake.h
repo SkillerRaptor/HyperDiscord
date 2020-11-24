@@ -4,7 +4,7 @@
 #error HyperDiscord is only supporting Windows in the moment
 #endif
 
-#include <cstdint>
+#include <string>
 
 #include "Utilities/Timestamp.h"
 
@@ -26,6 +26,7 @@ namespace HyperDiscord
 		uint64_t GetInternalProcessId() const;
 		uint64_t GetIncrement() const;
 
+		operator std::string() const;
 		operator long long() const;
 	};
 }

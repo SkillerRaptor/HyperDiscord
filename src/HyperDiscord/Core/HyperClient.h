@@ -26,6 +26,10 @@ namespace HyperDiscord
 		NetworkClient* m_NetworkClient;
 		Timestamp m_Uptime;
 
+		ChannelManager m_ChannelManger;
+		EmojiManager m_EmojiManger;
+		GuildManager m_GuildManager;
+
 		std::vector<std::function<void(Event&)>> m_EventFunctions;
 
 	public:
@@ -35,9 +39,9 @@ namespace HyperDiscord
 
 		void OnEvent(const typename std::common_type<std::function<void(Event&)>>::type function);
 
-		const ChannelManager& GetChannels() const;
-		const EmojiManager& GetEmojis() const;
-		const GuildManager& GetGuilds() const;
+		const ChannelManager& GetChannelManager() const;
+		const EmojiManager& GetEmojiManager() const;
+		const GuildManager& GetGuildManager() const;
 
 		const Token& GetToken() const;
 		Timestamp GetUptime() const;

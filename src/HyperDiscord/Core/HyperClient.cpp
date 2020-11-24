@@ -7,7 +7,7 @@
 namespace HyperDiscord
 {
 	HyperClient::HyperClient(Token token)
-		: m_Token(token), m_Uptime(Timestamp::Now())
+		: m_Token(token), m_Uptime(Timestamp::Now()), m_ChannelManger(*m_NetworkClient)
 	{
 		m_NetworkClient = new NetworkClient(m_Token, m_EventFunctions);
 	}
@@ -27,19 +27,19 @@ namespace HyperDiscord
 		m_EventFunctions.push_back(function);
 	}
 
-	const ChannelManager& HyperClient::GetChannels() const
+	const ChannelManager& HyperClient::GetChannelManager() const
 	{
-		return ChannelManager();
+		return m_ChannelManger;
 	}
 
-	const EmojiManager& HyperClient::GetEmojis() const
+	const EmojiManager& HyperClient::GetEmojiManager() const
 	{
-		return EmojiManager();
+		return m_EmojiManger;
 	}
 
-	const GuildManager& HyperClient::GetGuilds() const
+	const GuildManager& HyperClient::GetGuildManager() const
 	{
-		return GuildManager();
+		return m_GuildManager;
 	}
 
 	const Token& HyperClient::GetToken() const

@@ -153,7 +153,7 @@ namespace HyperDiscord
 
 	HINTERNET HTTPClient::GenerateRequest(const std::string& path, const std::string& requestString, const Headers& headers, const std::string& body)
 	{
-		HINTERNET request = WinHttpOpenRequest(m_Connection, ConvertFromString(requestString).c_str(), ConvertFromString(path).c_str(), nullptr, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_SECURE);
+		HINTERNET request = WinHttpOpenRequest(m_Connection, ConvertFromString(requestString).c_str(), ConvertFromString("/api/v8" + path).c_str(), nullptr, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_SECURE);
 		if (!request)
 		{
 			std::cerr << "[HyperDiscord] Error " << GetLastError() << " in WinHttpOpenRequest." << std::endl;
