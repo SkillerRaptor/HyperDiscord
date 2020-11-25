@@ -14,19 +14,19 @@ namespace HyperDiscord
 		return m_Milliseconds;
 	}
 
-	uint64_t Timestamp::GetSeconds() const
+	float Timestamp::GetSeconds() const
 	{
-		return m_Milliseconds / 1000;
+		return (float) m_Milliseconds / 1000;
 	}
 
-	uint64_t Timestamp::GetMinutes() const
+	float Timestamp::GetMinutes() const
 	{
-		return m_Milliseconds / 60000;
+		return (float) m_Milliseconds / 60000;
 	}
 
-	uint64_t Timestamp::GetHours() const
+	float Timestamp::GetHours() const
 	{
-		return m_Milliseconds / 3600000;
+		return (float) m_Milliseconds / 3600000;
 	}
 
 	Timestamp Timestamp::Now()

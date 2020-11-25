@@ -80,9 +80,9 @@ namespace HyperDiscord
 		}
 
 		uint64_t GetMilliseconds() const;
-		uint64_t GetSeconds() const;
-		uint64_t GetMinutes() const;
-		uint64_t GetHours() const;
+		float GetSeconds() const;
+		float GetMinutes() const;
+		float GetHours() const;
 
 		static Timestamp Now();
 		static Timestamp ConvertFromSeconds(uint64_t seconds);
