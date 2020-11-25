@@ -1,7 +1,8 @@
 ﻿# HyperDiscord API
 ![](https://img.shields.io/badge/license-MIT-yellow)
 ![](https://github.com/SkillerRaptor/HyperDiscord/workflows/build/badge.svg)
-[![Trello](https://img.shields.io/badge/board-trello-blue.svg)](https://trello.com/b/iNb0XH9O/hyperdiscord)
+
+HyperDiscord is a Discord API for C++. You can use it to make a fast and clean Discord Bot.
 
 ## Dependencies & License
 - [json](https://github.com/nlohmann/json/blob/develop/LICENSE.MIT) Copyright (c) MIT, Niels Lohmann 2013-2020
