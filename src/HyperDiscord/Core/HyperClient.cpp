@@ -8,10 +8,10 @@
 
 namespace HyperDiscord
 {
-	HyperClient::HyperClient(Token token)
-		: m_Token(token), m_Uptime(Timestamp::Now())
+	HyperClient::HyperClient(Token token, Intent intents)
+		: m_Token(token), m_Intents(intents), m_Uptime(Timestamp::Now())
 	{
-		m_NetworkClient = new NetworkClient(m_Token, m_EventBus);
+		m_NetworkClient = new NetworkClient(m_Token, m_Intents, m_EventBus);
 		m_ChannelManger = new ChannelManager(*m_NetworkClient);
 		m_EmojiManger = new EmojiManager();
 		m_GuildManager = new GuildManager(*m_NetworkClient);
@@ -29,8 +29,8 @@ namespace HyperDiscord
 			});
 	}
 
-	HyperClient::HyperClient(const std::string& token, TokenType tokenType)
-		: HyperClient(Token(token, tokenType))
+	HyperClient::HyperClient(const std::string& token, TokenType tokenType, Intent intents)
+		: HyperClient(Token(token, tokenType), intents)
 	{
 	}
 

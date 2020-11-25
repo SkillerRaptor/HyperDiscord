@@ -51,6 +51,7 @@ namespace HyperDiscord
 	{
 	private:
 		Token m_Token;
+		Intent m_Intents;
 		NetworkClient* m_NetworkClient;
 		Timestamp m_Uptime;
 
@@ -62,8 +63,8 @@ namespace HyperDiscord
 		std::vector<std::function<void(Event&)>> m_EventFunctions;
 
 	public:
-		HyperClient(Token token);
-		HyperClient(const std::string& token, TokenType tokenType);
+		HyperClient(Token token, Intent intents = Intent::NOTHING);
+		HyperClient(const std::string& token, TokenType tokenType, Intent intents = Intent::NOTHING);
 		~HyperClient();
 
 		void OnEvent(const typename std::common_type<std::function<void(Event&)>>::type function);
