@@ -8,12 +8,18 @@
 
 namespace HyperDiscord
 {
+	/* https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events */
 	enum class EventType : uint8_t
 	{
 		None = 0,
 		Ready,
-		GuildCreate,
-		MessageCreate, MessageUpdate, MessageDelete
+		ChannelCreate, ChannelUpdate, ChannelDelete, ChannelPinsUpdate,
+		GuildCreate, GuildUpdate, GuildDelete, GuildBanAdd, GuildBanRemove, GuildEmojisUpdate, GuildIntegrationsUpdate,
+		GuildMemberAdd, GuildMemberUpdate, GuildMemberRemove, GuildMemberChunk, GuildRoleCreate, GuildRoleUpdate, GuildRoleDelete,
+		InviteCreate, InviteDelete,
+		MessageCreate, MessageUpdate, MessageDelete, MessageDeleteBulk, 
+		MessageReactionAdd, MessageReactionRemove, MessageReactionRemoveAll, MessageReactionRemoveEmoji,
+		PresenceUpdate, TypingStart, UserUpdate, VoiceStateUpdate, VoiceServerUpdate, WebhooksUpdate
 	};
 
 	enum EventCategory : uint8_t
@@ -22,7 +28,6 @@ namespace HyperDiscord
 		ChannelCategory,
 		GeneralCategory,
 		GuildCategory,
-		InviteCategory,
 		MessageCategory
 	};
 
@@ -42,10 +47,7 @@ namespace HyperDiscord
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		bool IsInCategory(EventCategory category)
-		{
-			return GetCategoryFlags() & category;
-		}
+		bool IsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
 	};
 
 	class EventDispatcher

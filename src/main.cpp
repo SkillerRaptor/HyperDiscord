@@ -14,6 +14,11 @@ int main(int argc, char** argv)
 	hyperClient->OnEvent([&](Event& event)
 		{
 			EventDispatcher dispatcher(event);
+			dispatcher.Dispatch<ReadyEvent>([&](ReadyEvent& readyEvent)
+				{
+					std::cout << "Ready" << std::endl;
+				});
+
 			dispatcher.Dispatch<GuildCreateEvent>([&](GuildCreateEvent& guildCreateEvent)
 				{
 					std::cout << "Guild Create" << std::endl;

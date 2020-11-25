@@ -83,4 +83,94 @@ namespace HyperDiscord
 		EVENT_CLASS_TYPE(MessageDelete)
 		EVENT_CLASS_CATEGORY(MessageCategory)
 	};
+
+	class MessageDeleteBulkEvent : public Event
+	{
+	private:
+
+	public:
+		MessageDeleteBulkEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MessageDeleteBulkEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MessageDeleteBulk)
+		EVENT_CLASS_CATEGORY(MessageCategory)
+	};
+
+	class MessageReactionAddEvent : public Event
+	{
+	private:
+
+	public:
+		MessageReactionAddEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MessageReactionAddEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MessageReactionAdd)
+		EVENT_CLASS_CATEGORY(MessageCategory)
+	};
+
+	class MessageReactionRemoveEvent : public Event
+	{
+	private:
+
+	public:
+		MessageReactionRemoveEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MessageReactionRemoveEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MessageReactionRemove)
+		EVENT_CLASS_CATEGORY(MessageCategory)
+	};
+
+	class MessageReactionRemoveAllEvent : public Event
+	{
+	private:
+
+	public:
+		MessageReactionRemoveAllEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MessageReactionRemoveAllEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MessageReactionRemoveAll)
+		EVENT_CLASS_CATEGORY(MessageCategory)
+	};
+
+	class MessageReactionRemoveEmojiEvent : public Event
+	{
+	private:
+
+	public:
+		MessageReactionRemoveEmojiEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MessageReactionRemoveEmojiEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MessageReactionRemoveEmoji)
+		EVENT_CLASS_CATEGORY(MessageCategory)
+	};
 }

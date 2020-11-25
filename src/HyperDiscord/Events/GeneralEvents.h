@@ -41,4 +41,148 @@ namespace HyperDiscord
 		EVENT_CLASS_TYPE(Ready)
 		EVENT_CLASS_CATEGORY(GeneralCategory)
 	};
+
+	class InviteCreateEvent : public Event
+	{
+	private:
+
+	public:
+		InviteCreateEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "InviteCreateEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(InviteCreate)
+		EVENT_CLASS_CATEGORY(GeneralCategory)
+	};
+
+	class InviteDeleteEvent : public Event
+	{
+	private:
+
+	public:
+		InviteDeleteEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "InviteDeleteEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(InviteDelete)
+		EVENT_CLASS_CATEGORY(GeneralCategory)
+	};
+
+	class PresenceUpdateEvent : public Event
+	{
+	private:
+
+	public:
+		PresenceUpdateEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "PresenceUpdateEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(PresenceUpdate)
+		EVENT_CLASS_CATEGORY(GeneralCategory)
+	};
+
+	class TypingStartEvent : public Event
+	{
+	private:
+
+	public:
+		TypingStartEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "TypingStartEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(TypingStart)
+		EVENT_CLASS_CATEGORY(GeneralCategory)
+	};
+
+	class UserUpdateEvent : public Event
+	{
+	private:
+
+	public:
+		UserUpdateEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "UserUpdateEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(UserUpdate)
+		EVENT_CLASS_CATEGORY(GeneralCategory)
+	};
+
+	class VoiceStateUpdateEvent : public Event
+	{
+	private:
+
+	public:
+		VoiceStateUpdateEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "VoiceStateUpdateEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(VoiceStateUpdate)
+		EVENT_CLASS_CATEGORY(GeneralCategory)
+	};
+
+	class VoiceServerUpdateEvent : public Event
+	{
+	private:
+
+	public:
+		VoiceServerUpdateEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "VoiceServerUpdateEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(VoiceServerUpdate)
+		EVENT_CLASS_CATEGORY(GeneralCategory)
+	};
+
+	class WebhooksUpdateEvent : public Event
+	{
+	private:
+
+	public:
+		WebhooksUpdateEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "WebhooksUpdateEvent: ";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(WebhooksUpdate)
+		EVENT_CLASS_CATEGORY(GeneralCategory)
+	};
 }

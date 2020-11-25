@@ -9,8 +9,8 @@
 
 namespace HyperDiscord
 {
-	NetworkClient::NetworkClient(Token token, std::queue<std::shared_ptr<Event>>& eventBus)
-		: m_Token(token), m_EventBus(eventBus)
+	NetworkClient::NetworkClient(Token token, Intent intents, std::queue<std::shared_ptr<Event>>& eventBus)
+		: m_Token(token), m_Intents(intents), m_EventBus(eventBus)
 	{
 		m_EventTypes["GUILD_CREATE"] = EventType::GuildCreate;
 		m_EventTypes["MESSAGE_CREATE"] = EventType::MessageCreate;
@@ -22,7 +22,7 @@ namespace HyperDiscord
 		m_WebSocketClient = new WebSocketClient();
 
 		m_HeartBeat = nlohmann::json::parse(m_WebSocketClient->Listen())["d"]["heartbeat_interval"];
-		nlohmann::json ready = nlohmann::json::parse(m_WebSocketClient->SendData("{\"op\":2,\"d\":{\"token\":\"" + token.GetToken() + "\",\"intents\":513,\"properties\":{\"$os\":\"windows\",\"$browser\":\"HyperDiscord\",\"$device\":\"HyperDiscord\"}}}"));
+		nlohmann::json ready = nlohmann::json::parse(m_WebSocketClient->SendData("{\"op\":2,\"d\":{\"token\":\"" + token.GetToken() + "\",\"intents\":" + std::to_string((intents & Intent::NOTHING) ? 0 : intents) + ",\"properties\":{\"$os\":\"windows\",\"$browser\":\"HyperDiscord\",\"$device\":\"HyperDiscord\"}}}"));
 
 		m_HeartBeatingThread = std::thread(&NetworkClient::HeartBeating, this);
 		m_ListeningThread = std::thread(&NetworkClient::Listening, this);
@@ -52,6 +52,7 @@ namespace HyperDiscord
 				if (!jsonMessage["t"].is_null() && jsonMessage["t"].is_string())
 				{
 					std::string eventName = GetStringObject(jsonMessage, "t");
+					std::cout << eventName << std::endl;
 					if (m_EventTypes.find(eventName) != m_EventTypes.end())
 						OnEvent(m_EventTypes.at(eventName), jsonMessage["d"]);
 				}
