@@ -1,5 +1,6 @@
 ﻿#include "HyperDiscord/HyperDiscord.h"
 
+#include "Events/GeneralEvents.h"
 #include "Events/GuildEvents.h"
 #include "Events/MessageEvents.h"
 
