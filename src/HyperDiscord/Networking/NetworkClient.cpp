@@ -52,7 +52,6 @@ namespace HyperDiscord
 				if (!jsonMessage["t"].is_null() && jsonMessage["t"].is_string())
 				{
 					std::string eventName = GetStringObject(jsonMessage, "t");
-					std::cout << eventName << std::endl;
 					if (m_EventTypes.find(eventName) != m_EventTypes.end())
 						OnEvent(m_EventTypes.at(eventName), jsonMessage["d"]);
 				}
@@ -378,6 +377,8 @@ namespace HyperDiscord
 	const std::optional<nlohmann::json> NetworkClient::Put(const std::string& path, const std::string& body)
 	{
 		std::string response = m_HTTPClient->Put(path, body);
+		if (response.empty() || response == "")
+			return nlohmann::json::parse("{}");
 		nlohmann::json data = nlohmann::json::parse(response);
 		if (data.contains("code") && data.contains("message"))
 		{

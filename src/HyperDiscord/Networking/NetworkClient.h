@@ -75,8 +75,8 @@ namespace HyperDiscord
 
 		const std::optional<nlohmann::json> Get(const std::string& path);
 		const std::optional<nlohmann::json> Post(const std::string& path, const std::string& body);
-		const std::optional<nlohmann::json> Put(const std::string& path, const std::string& body);
 		const std::optional<nlohmann::json> Patch(const std::string& path, const std::string& body);
+		const std::optional<nlohmann::json> Put(const std::string& path, const std::string& body = "");
 		void Delete(const std::string& path);
 
 		const std::string SendData(const std::string& message);
