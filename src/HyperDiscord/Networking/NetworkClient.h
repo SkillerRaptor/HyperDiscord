@@ -68,19 +68,19 @@ namespace HyperDiscord
 		const std::string Listen();
 		const std::string SendData(const std::string& message);
 
-		bool GetBooleanObject(const nlohmann::json& dataArray, const std::string& key);
-		int GetIntegerObject(const nlohmann::json& dataArray, const std::string& key);
-		std::string GetStringObject(const nlohmann::json& dataArray, const std::string& key);
-		nlohmann::json GetArrayObject(const nlohmann::json& dataArray, const std::string& key);
+		bool GetBooleanObject(const nlohmann::json& dataArray, const std::string& key = "");
+		int GetIntegerObject(const nlohmann::json& dataArray, const std::string& key = "");
+		std::string GetStringObject(const nlohmann::json& dataArray, const std::string& key = "");
+		nlohmann::json GetArrayObject(const nlohmann::json& dataArray, const std::string& key = "");
 
-		Snowflake GetSnowflakeObject(const nlohmann::json& dataArray, const std::string& key);
-		Iso8601 GetIso8061Object(const nlohmann::json& dataArray, const std::string& key);
+		Snowflake GetSnowflakeObject(const nlohmann::json& dataArray, const std::string& key = "");
+		Iso8601 GetIso8061Object(const nlohmann::json& dataArray, const std::string& key = "");
 
-		Channel GetChannelObject(const nlohmann::json& dataArray, const std::string& key);
-		Guild GetGuildObject(const nlohmann::json& dataArray, const std::string& key);
-		User GetUserObject(const nlohmann::json& dataArray, const std::string& key);
-		GuildMember GetGuildMemberObject(const nlohmann::json& dataArray, const std::string& key);
-		Message GetMessageObject(const nlohmann::json& dataArray, const std::string& key);
+		Channel GetChannelObject(const nlohmann::json& dataArray, const std::string& key = "");
+		Guild GetGuildObject(const nlohmann::json& dataArray, const std::string& key = "");
+		User GetUserObject(const nlohmann::json& dataArray, const std::string& key = "");
+		GuildMember GetGuildMemberObject(const nlohmann::json& dataArray, const std::string& key = "");
+		Message GetMessageObject(const nlohmann::json& dataArray, const std::string& key = "");
 
 	private:
 		void Listening();

@@ -82,19 +82,19 @@ namespace HyperDiscord
 		{
 		case EventType::GuildCreate:
 		{
-			Guild guild = GetGuildObject(data, "");
+			Guild guild = GetGuildObject(data);
 			m_EventBus.push(std::make_shared<GuildCreateEvent>(guild));
 			break;
 		}
 		case EventType::MessageCreate:
 		{
-			Message message = GetMessageObject(data, "");
+			Message message = GetMessageObject(data);
 			m_EventBus.push(std::make_shared<MessageCreateEvent>(message));
 			break;
 		}
 		case EventType::MessageUpdate:
 		{
-			Message message = GetMessageObject(data, "");
+			Message message = GetMessageObject(data);
 			m_EventBus.push(std::make_shared<MessageUpdateEvent>(message));
 			break;
 		}
@@ -113,7 +113,7 @@ namespace HyperDiscord
 			std::vector<Guild> guilds;
 			nlohmann::json guildArray = GetArrayObject(data, "guilds");
 			for (nlohmann::json guildObject : guildArray)
-				guilds.push_back(GetGuildObject(guildObject, ""));
+				guilds.push_back(GetGuildObject(guildObject));
 			std::string sessionId = GetStringObject(data, "session_id");
 			m_EventBus.push(std::make_shared<ReadyEvent>(version, user, guilds, sessionId));
 			break;
