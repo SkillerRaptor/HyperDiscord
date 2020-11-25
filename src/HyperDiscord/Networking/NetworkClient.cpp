@@ -3,6 +3,7 @@
 #include <iostream>
 #include <ctime>
 
+#include "Events/ChannelEvents.h"
 #include "Events/GeneralEvents.h"
 #include "Events/GuildEvents.h"
 #include "Events/MessageEvents.h"
@@ -12,11 +13,40 @@ namespace HyperDiscord
 	NetworkClient::NetworkClient(Token token, Intent intents, std::queue<std::shared_ptr<Event>>& eventBus)
 		: m_Token(token), m_Intents(intents), m_EventBus(eventBus)
 	{
+		m_EventTypes["CHANNEL_CREATE"] = EventType::GuildCreate;
+		m_EventTypes["CHANNEL_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["CHANNEL_DELETE"] = EventType::GuildCreate;
+		m_EventTypes["CHANNEL_PINS_UPDATE"] = EventType::GuildCreate;
 		m_EventTypes["GUILD_CREATE"] = EventType::GuildCreate;
-		m_EventTypes["MESSAGE_CREATE"] = EventType::MessageCreate;
-		m_EventTypes["MESSAGE_UPDATE"] = EventType::MessageUpdate;
-		m_EventTypes["MESSAGE_DELETE"] = EventType::MessageDelete;
-		m_EventTypes["READY"] = EventType::Ready;
+		m_EventTypes["GUILD_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_DELETE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_BAN_ADD"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_BAN_REMOVE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_EMOJIS_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_INTEGRATIONS_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_MEMBER_ADD"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_MEMBER_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_MEMBER_REMOVE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_MEMBER_CHUNK"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_ROLE_CREATE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_ROLE_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["GUILD_ROLE_DELETE"] = EventType::GuildCreate;
+		m_EventTypes["INVITE_CREATE"] = EventType::GuildCreate;
+		m_EventTypes["INVITE_DELETE"] = EventType::GuildCreate;
+		m_EventTypes["MESSAGE_CREATE"] = EventType::GuildCreate;
+		m_EventTypes["MESSAGE_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["MESSAGE_DELETE"] = EventType::GuildCreate;
+		m_EventTypes["MESSAGE_DELETE_BULK"] = EventType::GuildCreate;
+		m_EventTypes["MESSAGE_REACTION_ADD"] = EventType::GuildCreate;
+		m_EventTypes["MESSAGE_REACTION_REMOVE"] = EventType::GuildCreate;
+		m_EventTypes["MESSAGE_REACTION_REMOVE_ALL"] = EventType::GuildCreate;
+		m_EventTypes["MESSAGE_REACTION_REMOVE_EMOJI"] = EventType::GuildCreate;
+		m_EventTypes["PRESENCE_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["TYPING_START"] = EventType::GuildCreate;
+		m_EventTypes["USER_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["VOICE_STATE_UPDATE"] = EventType::GuildCreate;
+		m_EventTypes["VOICE_SERVER_UPDATE"] = EventType::MessageCreate;
+		m_EventTypes["WEBHOOKS_UPDATE"] = EventType::MessageUpdate;
 
 		m_HTTPClient = new HTTPClient(m_Token);
 		m_WebSocketClient = new WebSocketClient();
