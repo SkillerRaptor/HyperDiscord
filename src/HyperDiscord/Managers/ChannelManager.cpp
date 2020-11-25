@@ -22,14 +22,14 @@ namespace HyperDiscord
 
 	std::optional<Message> ChannelManager::SendMessage(Snowflake channelId, const std::string& message)
 	{
-		nlohmann::json data = nlohmann::json::parse(m_NetworkClient.Post("/channels/" + static_cast<std::string>(channelId) + "/messages", "{\"content\":" + message + "}"));
+		nlohmann::json data = nlohmann::json::parse(m_NetworkClient.Post("/channels/" + static_cast<std::string>(channelId) + "/messages", "{\"content\":\"" + message + "\"}"));
 		// TODO: Error Checking
 		return std::optional<Message>(m_NetworkClient.GetMessageObject(data, ""));
 	}
 
 	std::optional<Message> ChannelManager::EditMessage(Snowflake channelId, Snowflake messageId, const std::string& message)
 	{
-		nlohmann::json data = nlohmann::json::parse(m_NetworkClient.Patch("/channels/" + static_cast<std::string>(channelId) + "/messages/" + static_cast<std::string>(messageId), "{\"content\":" + message + "}"));
+		nlohmann::json data = nlohmann::json::parse(m_NetworkClient.Patch("/channels/" + static_cast<std::string>(channelId) + "/messages/" + static_cast<std::string>(messageId), "{\"content\":\"" + message + "\"}"));
 		// TODO: Error Checking
 		return std::optional<Message>(m_NetworkClient.GetMessageObject(data, ""));
 	}

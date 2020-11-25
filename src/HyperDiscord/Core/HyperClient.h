@@ -68,9 +68,9 @@ namespace HyperDiscord
 
 		void OnEvent(const typename std::common_type<std::function<void(Event&)>>::type function);
 
-		const ChannelManager& GetChannelManager() const;
-		const EmojiManager& GetEmojiManager() const;
-		const GuildManager& GetGuildManager() const;
+		ChannelManager& GetChannelManager();
+		EmojiManager& GetEmojiManager();
+		GuildManager& GetGuildManager();
 
 		void SetStatus(StatusInfo statusInfo);
 

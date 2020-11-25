@@ -44,17 +44,17 @@ namespace HyperDiscord
 		m_EventFunctions.push_back(function);
 	}
 
-	const ChannelManager& HyperClient::GetChannelManager() const
+	ChannelManager& HyperClient::GetChannelManager()
 	{
 		return *m_ChannelManger;
 	}
 
-	const EmojiManager& HyperClient::GetEmojiManager() const
+	EmojiManager& HyperClient::GetEmojiManager()
 	{
 		return *m_EmojiManger;
 	}
 
-	const GuildManager& HyperClient::GetGuildManager() const
+	GuildManager& HyperClient::GetGuildManager()
 	{
 		return *m_GuildManager;
 	}
