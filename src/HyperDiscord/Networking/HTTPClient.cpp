@@ -47,41 +47,9 @@ namespace HyperDiscord
 		return response;
 	}
 
-	const std::string HTTPClient::Get(const std::string& path, const Headers& headers)
-	{
-		HINTERNET request = GenerateRequest(path, "GET", headers, "");
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
-	const std::string HTTPClient::Post(const std::string& path)
-	{
-		HINTERNET request = GenerateRequest(path, "POST", {}, "");
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
 	const std::string HTTPClient::Post(const std::string& path, const std::string& body)
 	{
 		HINTERNET request = GenerateRequest(path, "POST", {}, body);
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
-	const std::string HTTPClient::Post(const std::string& path, const Headers& headers, const std::string& body)
-	{
-		HINTERNET request = GenerateRequest(path, "POST", headers, "");
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
-	const std::string HTTPClient::Put(const std::string& path)
-	{
-		HINTERNET request = GenerateRequest(path, "PUT", {}, "");
 		const std::string response = GetResponseHeader(request);
 		WinHttpCloseHandle(request);
 		return response;
@@ -95,33 +63,9 @@ namespace HyperDiscord
 		return response;
 	}
 
-	const std::string HTTPClient::Put(const std::string& path, const Headers& headers, const std::string& body)
-	{
-		HINTERNET request = GenerateRequest(path, "PUT", headers, body);
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
-	const std::string HTTPClient::Patch(const std::string& path)
-	{
-		HINTERNET request = GenerateRequest(path, "PATCH", {}, "");
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
 	const std::string HTTPClient::Patch(const std::string& path, const std::string& body)
 	{
 		HINTERNET request = GenerateRequest(path, "PATCH", {}, body);
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
-	const std::string HTTPClient::Patch(const std::string& path, const Headers& headers, const std::string& body)
-	{
-		HINTERNET request = GenerateRequest(path, "PATCH", headers, "");
 		const std::string response = GetResponseHeader(request);
 		WinHttpCloseHandle(request);
 		return response;
@@ -135,22 +79,6 @@ namespace HyperDiscord
 		return response;
 	}
 
-	const std::string HTTPClient::Delete(const std::string& path, const std::string& body)
-	{
-		HINTERNET request = GenerateRequest(path, "DELETE", {}, body);
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
-	const std::string HTTPClient::Delete(const std::string& path, const Headers& headers, const std::string& body)
-	{
-		HINTERNET request = GenerateRequest(path, "DELETE", headers, body);
-		const std::string response = GetResponseHeader(request);
-		WinHttpCloseHandle(request);
-		return response;
-	}
-
 	HINTERNET HTTPClient::GenerateRequest(const std::string& path, const std::string& requestString, const Headers& headers, const std::string& body)
 	{
 		HINTERNET request = WinHttpOpenRequest(m_Connection, ConvertFromString(requestString).c_str(), ConvertFromString("/api/v8" + path).c_str(), nullptr, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_SECURE);
@@ -159,8 +87,6 @@ namespace HyperDiscord
 			std::cerr << "[HyperDiscord] Error " << GetLastError() << " in WinHttpOpenRequest." << std::endl;
 			exit(-1);
 		}
-
-		std::cout << requestString << std::endl;
 
 		std::wstring additionalHeaders = GenerateHeaders(headers);
 		if (!WinHttpSendRequest(request, additionalHeaders.c_str(), -1L, WINHTTP_NO_REQUEST_DATA, 0, (body == "") ? 0 : body.length(), 0))

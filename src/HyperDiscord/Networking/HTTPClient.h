@@ -29,23 +29,10 @@ namespace HyperDiscord
 		~HTTPClient();
 
 		const std::string Get(const std::string& path);
-		const std::string Get(const std::string& path, const Headers& headers);
-
-		const std::string Post(const std::string& path);
 		const std::string Post(const std::string& path, const std::string& body);
-		const std::string Post(const std::string& path, const Headers& headers, const std::string& body);
-
-		const std::string Put(const std::string& path);
 		const std::string Put(const std::string& path, const std::string& body);
-		const std::string Put(const std::string& path, const Headers& headers, const std::string& body);
-
-		const std::string Patch(const std::string& path);
 		const std::string Patch(const std::string& path, const std::string& body);
-		const std::string Patch(const std::string& path, const Headers& headers, const std::string& body);
-
 		const std::string Delete(const std::string& path);
-		const std::string Delete(const std::string& path, const std::string& body);
-		const std::string Delete(const std::string& path, const Headers& headers, const std::string& body);
 
 	private:
 		void Init();

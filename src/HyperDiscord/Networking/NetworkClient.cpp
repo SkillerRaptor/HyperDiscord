@@ -350,79 +350,61 @@ namespace HyperDiscord
 		return message;
 	}
 
-	const std::string NetworkClient::Get(const std::string& path)
+	const std::optional<nlohmann::json> NetworkClient::Get(const std::string& path)
 	{
-		return m_HTTPClient->Get(path);
+		std::string response = m_HTTPClient->Get(path);
+		nlohmann::json data = nlohmann::json::parse(response);
+		if (data.contains("code") && data.contains("message"))
+		{
+			std::cerr << "[HyperDiscord] Error Code '" << data["code"] << "' with message " << data["message"] << std::endl;
+			return std::nullopt;
+		}
+		return data;
 	}
 
-	const std::string NetworkClient::Get(const std::string& path, const Headers& headers)
+	const std::optional<nlohmann::json> NetworkClient::Post(const std::string& path, const std::string& body)
 	{
-		return m_HTTPClient->Get(path, headers);
+		std::string response = m_HTTPClient->Post(path, body);
+		nlohmann::json data = nlohmann::json::parse(response);
+		if (data.contains("code") && data.contains("message"))
+		{
+			std::cerr << "[HyperDiscord] Error Code '" << data["code"] << "' with message " << data["message"] << std::endl;
+			return std::nullopt;
+		}
+		return data;
 	}
 
-	const std::string NetworkClient::Post(const std::string& path)
+	const std::optional<nlohmann::json> NetworkClient::Put(const std::string& path, const std::string& body)
 	{
-		return m_HTTPClient->Post(path);
+		std::string response = m_HTTPClient->Put(path, body);
+		nlohmann::json data = nlohmann::json::parse(response);
+		if (data.contains("code") && data.contains("message"))
+		{
+			std::cerr << "[HyperDiscord] Error Code '" << data["code"] << "' with message " << data["message"] << std::endl;
+			return std::nullopt;
+		}
+		return data;
 	}
 
-	const std::string NetworkClient::Post(const std::string& path, const std::string& body)
+	const std::optional<nlohmann::json> NetworkClient::Patch(const std::string& path, const std::string& body)
 	{
-		return m_HTTPClient->Post(path, body);
+		std::string response = m_HTTPClient->Patch(path, body);
+		nlohmann::json data = nlohmann::json::parse(response);
+		if (data.contains("code") && data.contains("message"))
+		{
+			std::cerr << "[HyperDiscord] Error Code '" << data["code"] << "' with message " << data["message"] << std::endl;
+			return std::nullopt;
+		}
+		return data;
 	}
 
-	const std::string NetworkClient::Post(const std::string& path, const Headers& headers, const std::string& body)
+	void NetworkClient::Delete(const std::string& path)
 	{
-		return m_HTTPClient->Post(path, headers, body);
-	}
-
-	const std::string NetworkClient::Put(const std::string& path)
-	{
-		return m_HTTPClient->Put(path);
-	}
-
-	const std::string NetworkClient::Put(const std::string& path, const std::string& body)
-	{
-		return m_HTTPClient->Put(path, body);
-	}
-
-	const std::string NetworkClient::Put(const std::string& path, const Headers& headers, const std::string& body)
-	{
-		return m_HTTPClient->Put(path, headers, body);
-	}
-
-	const std::string NetworkClient::Patch(const std::string& path)
-	{
-		return m_HTTPClient->Patch(path);
-	}
-
-	const std::string NetworkClient::Patch(const std::string& path, const std::string& body)
-	{
-		return m_HTTPClient->Patch(path, body);
-	}
-
-	const std::string NetworkClient::Patch(const std::string& path, const Headers& headers, const std::string& body)
-	{
-		return m_HTTPClient->Patch(path, headers, body);
-	}
-
-	const std::string NetworkClient::Delete(const std::string& path)
-	{
-		return m_HTTPClient->Delete(path);
-	}
-
-	const std::string NetworkClient::Delete(const std::string& path, const std::string& body)
-	{
-		return m_HTTPClient->Delete(path, body);
-	}
-
-	const std::string NetworkClient::Delete(const std::string& path, const Headers& headers, const std::string& body)
-	{
-		return m_HTTPClient->Delete(path, headers, body);
-	}
-
-	const std::string NetworkClient::Listen()
-	{
-		return m_WebSocketClient->Listen();
+		std::string response = m_HTTPClient->Delete(path);
+		if (response.empty() || response == "")
+			return;
+		nlohmann::json data = nlohmann::json::parse(response);
+		std::cerr << "[HyperDiscord] Error Code '" << data["code"] << "' with message " << data["message"] << std::endl;
 	}
 
 	const std::string NetworkClient::SendData(const std::string& message)

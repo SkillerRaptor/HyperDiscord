@@ -8,9 +8,10 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
+#include <queue>
 #include <sstream>
 #include <thread>
-#include <queue>
 #include <vector>
 
 #include "HTTPClient.h"
@@ -18,10 +19,10 @@
 #include "Core/Token.h"
 #include "Events/Event.h"
 #include "Objects/Guild.h"
+#include "Objects/GuildMember.h"
 #include "Objects/Message.h"
 #include "Objects/Snowflake.h"
 #include "Objects/User.h"
-#include "Objects/GuildMember.h"
 #include "Utilities/Iso8601.h"
 
 namespace HyperDiscord
@@ -46,26 +47,12 @@ namespace HyperDiscord
 		NetworkClient(Token token, std::queue<std::shared_ptr<Event>>& eventBus);
 		~NetworkClient();
 
-		const std::string Get(const std::string& path);
-		const std::string Get(const std::string& path, const Headers& headers);
+		const std::optional<nlohmann::json> Get(const std::string& path);
+		const std::optional<nlohmann::json> Post(const std::string& path, const std::string& body);
+		const std::optional<nlohmann::json> Put(const std::string& path, const std::string& body);
+		const std::optional<nlohmann::json> Patch(const std::string& path, const std::string& body);
+		void Delete(const std::string& path);
 
-		const std::string Post(const std::string& path);
-		const std::string Post(const std::string& path, const std::string& body);
-		const std::string Post(const std::string& path, const Headers& headers, const std::string& body);
-
-		const std::string Put(const std::string& path);
-		const std::string Put(const std::string& path, const std::string& body);
-		const std::string Put(const std::string& path, const Headers& headers, const std::string& body);
-
-		const std::string Patch(const std::string& path);
-		const std::string Patch(const std::string& path, const std::string& body);
-		const std::string Patch(const std::string& path, const Headers& headers, const std::string& body);
-
-		const std::string Delete(const std::string& path);
-		const std::string Delete(const std::string& path, const std::string& body);
-		const std::string Delete(const std::string& path, const Headers& headers, const std::string& body);
-
-		const std::string Listen();
 		const std::string SendData(const std::string& message);
 
 		bool GetBooleanObject(const nlohmann::json& dataArray, const std::string& key = "");

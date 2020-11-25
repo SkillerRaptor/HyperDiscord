@@ -22,23 +22,26 @@ namespace HyperDiscord
 
 	std::optional<Message> ChannelManager::SendMessage(Snowflake channelId, const std::string& message)
 	{
-		nlohmann::json data = nlohmann::json::parse(m_NetworkClient.Post("/channels/" + static_cast<std::string>(channelId) + "/messages", "{\"content\":\"" + message + "\"}"));
-		// TODO: Error Checking
-		return std::optional<Message>(m_NetworkClient.GetMessageObject(data));
+		std::optional<nlohmann::json> data = m_NetworkClient.Post("/channels/" + static_cast<std::string>(channelId) + "/messages", "{\"content\":\"" + message + "\"}");
+		if (!data.has_value())
+			return std::nullopt;
+		return std::optional<Message>(m_NetworkClient.GetMessageObject(data.value()));
 	}
 
 	std::optional<Message> ChannelManager::EditMessage(Snowflake channelId, Snowflake messageId, const std::string& message)
 	{
-		nlohmann::json data = nlohmann::json::parse(m_NetworkClient.Patch("/channels/" + static_cast<std::string>(channelId) + "/messages/" + static_cast<std::string>(messageId), "{\"content\":\"" + message + "\"}"));
-		// TODO: Error Checking
-		return std::optional<Message>(m_NetworkClient.GetMessageObject(data));
+		std::optional<nlohmann::json> data = m_NetworkClient.Patch("/channels/" + static_cast<std::string>(channelId) + "/messages/" + static_cast<std::string>(messageId), "{\"content\":\"" + message + "\"}");
+		if (!data.has_value())
+			return std::nullopt;
+		return std::optional<Message>(m_NetworkClient.GetMessageObject(data.value()));
 	}
 
 	std::optional<Message> ChannelManager::GetMessage(Snowflake channelId, Snowflake messageId)
 	{
-		nlohmann::json data = nlohmann::json::parse(m_NetworkClient.Get("/channels/" + static_cast<std::string>(channelId) + "/messages/" + static_cast<std::string>(messageId)));
-		// TODO: Error Checking
-		return std::optional<Message>(m_NetworkClient.GetMessageObject(data));
+		std::optional<nlohmann::json> data = m_NetworkClient.Get("/channels/" + static_cast<std::string>(channelId) + "/messages/" + static_cast<std::string>(messageId));
+		if (!data.has_value())
+			return std::nullopt;
+		return std::optional<Message>(m_NetworkClient.GetMessageObject(data.value()));
 	}
 
 	void ChannelManager::DeleteMessage(Snowflake channelId, Snowflake messageId)
