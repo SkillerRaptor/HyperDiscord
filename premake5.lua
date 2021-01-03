@@ -25,9 +25,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
+IncludeDir["asio"] = "%{wks.location}/vendor/asio"
 IncludeDir["json"] = "%{wks.location}/vendor/json"
 
 group "Dependencies"
+	include "vendor/asio"
+	include "vendor/json"
 	include "vendor/premake"
 group ""
 
