@@ -25,12 +25,70 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["asio"] = "%{wks.location}/vendor/asio"
-IncludeDir["json"] = "%{wks.location}/vendor/json"
+IncludeDir["asio"] = "%{wks.location}/vendor/asio/asio/include"
+IncludeDir["json"] = "%{wks.location}/vendor/json/single_include/nlohmann"
 
 group "Dependencies"
-	include "vendor/asio"
-	include "vendor/json"
+	project "asio"
+	kind "StaticLib"
+	language "C++"
+    location ("%{IncludeDir.asio}")
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{IncludeDir.asio}/**.hpp"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		staticruntime "On"
+	
+	filter "system:linux"
+		pic "On"
+		systemversion "latest"
+		staticruntime "On"
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "on"
+	
+	project "json"
+	kind "StaticLib"
+	language "C++"
+    location ("%{IncludeDir.json}")
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{IncludeDir.json}/json.hpp"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		staticruntime "On"
+	
+	filter "system:linux"
+		pic "On"
+		systemversion "latest"
+		staticruntime "On"
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "on"
+
 	include "vendor/premake"
 group ""
 
@@ -58,11 +116,14 @@ project "HyperDiscord"
 	{
 		"src",
 		"src/HyperDiscord",
+		"%{IncludeDir.asio}",
 		"%{IncludeDir.json}"
 	}
 
 	links
 	{
+		"asio",
+		"json",
 		"Winhttp.lib",
 		"fwpuclnt.lib",
 		"ntdsapi.lib"
