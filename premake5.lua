@@ -29,66 +29,6 @@ IncludeDir["asio"] = "%{wks.location}/vendor/asio/asio/include"
 IncludeDir["json"] = "%{wks.location}/vendor/json/single_include/nlohmann"
 
 group "Dependencies"
-	project "asio"
-	kind "StaticLib"
-	language "C++"
-    location ("%{IncludeDir.asio}")
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files
-	{
-		"%{IncludeDir.asio}/**.hpp"
-	}
-
-	filter "system:windows"
-		systemversion "latest"
-		staticruntime "On"
-	
-	filter "system:linux"
-		pic "On"
-		systemversion "latest"
-		staticruntime "On"
-
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "on"
-	
-	project "json"
-	kind "StaticLib"
-	language "C++"
-    location ("%{IncludeDir.json}")
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files
-	{
-		"%{IncludeDir.json}/json.hpp"
-	}
-
-	filter "system:windows"
-		systemversion "latest"
-		staticruntime "On"
-	
-	filter "system:linux"
-		pic "On"
-		systemversion "latest"
-		staticruntime "On"
-
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "on"
-
 	include "vendor/premake"
 group ""
 
@@ -122,8 +62,6 @@ project "HyperDiscord"
 
 	links
 	{
-		"asio",
-		"json",
 		"Winhttp.lib",
 		"fwpuclnt.lib",
 		"ntdsapi.lib"
