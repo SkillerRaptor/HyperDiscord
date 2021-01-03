@@ -1,3 +1,6 @@
 [submodule "vendor/asio"]
 	path = vendor/asio
 	url = https://github.com/SkillerRaptor/asio
+[submodule "vendor/json"]
+	path = vendor/json
+	url = https://github.com/nlohmann/json
